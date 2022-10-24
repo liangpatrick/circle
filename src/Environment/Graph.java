@@ -1,43 +1,27 @@
-package NonAgents;
+package Environment;
 import org.apache.commons.lang3.builder.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Random;
 
 public class Graph {
     int cell;
     Node node;
-    static class Node{
-        Node prev;
+    public static class Node{
+        public Node prev;
 
-        boolean prey;
-        boolean predator;
-        boolean agent;
-        int preyDistance;
-        int predatorDistance;
+
         int agentDistance;
         int cell;
-//        Agent constructor
-        public Node(int cell, boolean prey, boolean predator, boolean agent, int predatorDistance, int preyDistance){
-            this.cell = cell;
-            this.prey = prey;
-            this.predator = predator;
-            this.agent = agent;
-            this.predatorDistance = predatorDistance;
-            this.preyDistance = preyDistance;
 
-        }
+
 //        Predator constructor
-        public Node(int cell, boolean predator, boolean agent, int agentDistance){
+        public Node(int cell,int agentDistance){
             this.cell = cell;
-            this.predator = predator;
-            this.agent = agent;
             this.agentDistance = agentDistance;
 
 
         }
-//      used for equals comparisons
+
         public Node(int cell){
             this.cell = cell;
         }
@@ -47,6 +31,14 @@ public class Graph {
             this.prev = prev;
         }
 
+
+        public int getCell(){
+            return cell;
+        }
+
+        public void setCell(int cell){
+            this.cell = cell;
+        }
 
         @Override
         public int hashCode() {
@@ -74,11 +66,7 @@ public class Graph {
 
         @Override
         public String toString(){
-//            return ("Cell: " + cell + "; Prey: " + prey + "; Predator: " + predator + "; Agent: " + agent + "; Predator Distance: " + predatorDistance + "; Prey Distance: " + preyDistance);
-            return ("Cell: " + cell + "; Agent: " + agent);
-
-
-//            return ("Cell: " + cell);
+            return ("Cell: " + cell);
         }
 
     }
@@ -98,23 +86,33 @@ public class Graph {
         ArrayList<ArrayList<Node>> graph = new ArrayList<>();
         for(int x = 0; x < 50; x++){
             ArrayList<Node> temp = new ArrayList<>();
-            temp.add(new Node(x, false, false, false, -1, -1));
+            temp.add(new Node(x));
 //            codes the wrap around
             if (x==0){
-                temp.add(new Node(x + 1, false, false, false, -1, -1));
-                temp.add(new Node(49, false, false, false, -1, -1));
+                temp.add(new Node(x + 1));
+                temp.add(new Node(49));
             } else if (x == 49) {
-                temp.add(new Node(0, false, false, true, -1, -1));
-                temp.add(new Node(x-1, false, false, false, -1, -1));
+                temp.add(new Node(0));
+                temp.add(new Node(x-1));
             } else {
 //                creates bidirectional edge
-                temp.add(new Node(x + 1, false, false, false, -1, -1));
-                temp.add(new Node(x - 1, false, false, false, -1, -1));
+                temp.add(new Node(x + 1));
+                temp.add(new Node(x - 1));
+
             }
             graph.add(temp);
         }
-        graph.get(0).get(0).agent = true;
         return graph;
+
+    }
+
+    static boolean contains(ArrayList<Node> skeleton, Node node){
+        for(int x = 0; x < skeleton.size(); x++){
+            if (skeleton.get(x).getCell() == node.getCell()){
+                return true;
+            }
+        }
+        return false;
 
     }
 //  adds random edges
@@ -127,7 +125,7 @@ public class Graph {
             int index = new Random().nextInt(full.size());
 
             Node currNode = full.get(index);
-            int value = currNode.cell;
+            int value = currNode.getCell();
             int range = new Random().nextInt(5) + 1;
             int sign = new Random().nextInt(2);
 //            negative if 1 and positive is 0
@@ -136,33 +134,44 @@ public class Graph {
             int newEdge = value + range * sign;
 
 //            wrapAround
-            newEdge = newEdge < 0 ? 50 + newEdge : newEdge;
-            newEdge = newEdge > 49 ? newEdge - 50 : newEdge;
-            Node newNode = full.contains(new Node(newEdge)) ? full.get(full.indexOf(new Node(newEdge))) : null;
+            Node newNode = null;
             int count = 0;
-
-            while(newNode == null || !full.contains(newNode)){
+            while(newNode == null){
                 range = new Random().nextInt(5) + 1;
                 sign = new Random().nextInt(2);
                 sign = sign == 1 ? -1 : 1;
                 newEdge = value + range* sign;
                 newEdge = newEdge < 0 ? 50 + newEdge : newEdge;
                 newEdge = newEdge > 49 ? newEdge - 50 : newEdge;
+
                 newNode = full.contains(new Node(newEdge)) ? full.get(full.indexOf(new Node(newEdge))) : null;
+
+
+                if (newNode != null && contains(skeleton.get(currNode.getCell()), newNode)){
+                    newNode = null;
+                    continue;
+                }
                 count += 1;
 //                abritray limit to exhaust all possibilities that no possible edge
                 if (count > 50){
+
                     return skeleton;
                 }
             }
 
-//            int fullNewEdgeIndex = full.indexOf(newEdge);
-            skeleton.get(currNode.cell).add(new Node(newEdge, false, false, false, -1, -1));
-            skeleton.get(newNode.cell).add(new Node(value, false, false, false, -1, -1));
-            full.remove(currNode);
-            full.remove(newNode);
+
+            if(contains(skeleton.get(currNode.getCell()), newNode)){
+                return null;
+            }
+            skeleton.get(currNode.getCell()).add(new Node(newEdge));
+            skeleton.get(newNode.getCell()).add(new Node(value));
+            full.remove(full.indexOf(currNode));
+            full.remove(full.indexOf(newNode));
 
         }
+
+
+
         return skeleton;
     }
 
