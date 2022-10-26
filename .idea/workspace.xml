@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1522e6cc-1949-4fa9-9738-bdb20339ddb5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Agents/CompleteInformation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Environment/Agent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Environment/Prey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Agents/CompleteInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/CompleteInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Environment/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Environment/Agent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Environment/Prey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Environment/Prey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NonAgents/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Environment/Graph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NonAgents/Predator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Environment/Predator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NonAgents/Prey.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +80,7 @@
       <workItem from="1666225470054" duration="15555000" />
       <workItem from="1666328075673" duration="383000" />
       <workItem from="1666328524066" duration="21593000" />
-      <workItem from="1666640604545" duration="1421000" />
+      <workItem from="1666640604545" duration="7591000" />
     </task>
     <servers />
   </component>
