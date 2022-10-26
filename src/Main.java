@@ -6,22 +6,33 @@ import java.util.ArrayList;
 public class Main {
     public static void main (String args[]) {
         ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-
+//        Graph.printGraph(maze);
 
         int success = 0;
+//        int hung = 0;
+//        double fail = 0;
         long total = System.nanoTime();
-        for(int x = 0; x < 100; x++){
-            long startTime = System.nanoTime();
-            if(CompleteInformation.agentOne(Graph.buildGraph()))
+        for(int x = 1; x <= 3000; x++){
+//            long startTime = System.nanoTime();
+            String result = CompleteInformation.agentOne(Graph.buildGraph());
+            if(result.equals("true"))
                 success++;
-            long endTime = System.nanoTime();
-            long duration = (endTime - startTime)/(long)Math.pow(10,9);
-            System.out.println(x + "; " + success + "; " +duration);
+//            else if(result.equals("hung"))
+//                hung++;
+//            else
+//                fail++;
+
+
+//            long endTime = System.nanoTime();
+//            long duration = (endTime - startTime)/(long)Math.pow(10,9);
+//            System.out.println(x + "; " + success + "; " +duration);
         }
         long endTime = System.nanoTime();
         long duration = (endTime - total)/(long)Math.pow(10,9);
         System.out.println(duration);
-        System.out.println(success);
+//        System.out.println(hung);
+//        System.out.println("Hung out of Loss: " + hung/fail);
+        System.out.println(success/3000.0);
 
 
 

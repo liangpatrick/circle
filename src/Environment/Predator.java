@@ -47,9 +47,10 @@ public class Predator {
             List<Graph.Node> edges = maze.get(ind).subList(1, maze.get(ind).size());
             for(Graph.Node n: edges)
             {
-                visited.add(n.getCell());
-                fringe.add(new Graph.Node(n.getCell(), curr));
-
+                if(!visited.contains(n.getCell())) {
+                    visited.add(n.getCell());
+                    fringe.add(new Graph.Node(n.getCell(), curr));
+                }
             }
 
         }
