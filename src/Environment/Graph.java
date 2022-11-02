@@ -10,11 +10,19 @@ public class Graph {
         public Node prev;
         public int level;
         int cell;
+        double distance;
 
 
         public Node(int cell,int level){
             this.cell = cell;
             this.level = level;
+
+
+        }
+
+        public Node(int cell, double distance){
+            this.cell = cell;
+            this.distance = distance;
 
 
         }
@@ -26,6 +34,10 @@ public class Graph {
         public Node(int cell, Node prev){
             this.cell = cell;
             this.prev = prev;
+        }
+
+        public double getDistance(){
+            return distance;
         }
 
 

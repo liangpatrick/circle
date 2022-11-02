@@ -51,7 +51,7 @@ public class Predator {
         return null;
     }
 //  returns path from start to goal node
-    private static void getPath(Graph.Node node, List<Graph.Node> path){
+    public static void getPath(Graph.Node node, List<Graph.Node> path){
         if (node != null){
             getPath(node.prev, path);
             path.add(node);

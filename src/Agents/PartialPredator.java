@@ -9,24 +9,26 @@ import java.util.*;
 
 import static Agents.CompleteInformation.searchPred;
 import static Agents.CompleteInformation.searchPrey;
+import static Agents.PartialPrey.matmul;
+import static Environment.Predator.getPath;
 
-public class PartialPrey {
+public class PartialPredator {
     static double[] belief = new double[50];
     static double[][] transMatrix = new double[50][50];
-    public static String agentThree(ArrayList<ArrayList<Graph.Node>> maze){
+    public static String agentFive(ArrayList<ArrayList<Graph.Node>> maze){
 //        initializes all player positions
         Agent agent = new Agent();
         Prey prey = new Prey(agent);
         Predator predator = new Predator(agent);
-        initTransMatrix(maze);
+        updateTransMatrix(maze);
         initialBelief(agent.getCell());
 
         int count = 0;
 //        will return only when Agent dies or succeeds
         while(true){
 //            hung
-            if (count == 100)
-                return "hung";
+//            if (count == 30)
+//                return "hung";
 
 //            creates arraylists of neighbors, predator distances, and prey distances
             ArrayList<Graph.Node> neighbors = maze.get(agent.getCell());
@@ -38,9 +40,9 @@ public class PartialPrey {
                 bayes(true, prey.getCell(), agent);
             } else {
                 bayes(false, surveyedNode, agent);
+                matmul();
             }
-            normalize();
-
+//            matmul();
 
 //            adds distances to predator/prey from all neighbors
             for(int x = 0; x < neighbors.size(); x++){
@@ -97,8 +99,9 @@ public class PartialPrey {
             if(agent.getCell() == prey.getCell()){
                 return "true";
             }
+//            matmul();
             bayes(false,  agent.getCell(), agent);
-            normalize();
+            matmul();
 //            System.out.println(beliefSum(belief));
 //          prey move
 
@@ -108,8 +111,7 @@ public class PartialPrey {
                 return "true";
             }
 //            bayes(false, agent.getCell(), agent);
-            matmul();
-            normalize();
+//            matmul();
 //            System.out.println(beliefSum(belief));
 
 
@@ -147,7 +149,7 @@ public class PartialPrey {
 //        return "false";
     }
 
-//    updates belief when new node is surveyed; Phrases: found, moving, not found
+    //    updates belief when new node is surveyed; Phrases: found, moving, not found
     public static void bayes(boolean found, int cell, Agent agent){
 
         if (found){
@@ -203,7 +205,7 @@ public class PartialPrey {
 
 
 
-//    initializes 1/49 for every non-agent cell
+    //    initializes 1/49 for every non-agent cell
     public static void initialBelief(int agentCell){
         for(int x = 0; x < belief.length; x++){
             if(x != agentCell) {
@@ -217,20 +219,8 @@ public class PartialPrey {
         }
     }
 
-//    sums up belief for normalization and error checking
-    public static double beliefSum(double[] array) {
-        return Arrays.stream(array).sum();
-    }
-//    never changes
-    public static void initTransMatrix(ArrayList<ArrayList<Graph.Node>> maze){
-        for(int x = 0; x < maze.size(); x++){
-            for(int y = 0; y < maze.get(x).size(); y++){
-                transMatrix[maze.get(x).get(0).getCell()][maze.get(x).get(y).getCell()] = 1.0/(maze.get(x).size());
-            }
-        }
-    }
 
-//    returns random cell that has the highest likelihood of being prey
+    //    returns random cell that has the highest likelihood of being prey
     public static int randomSurvey(){
         ArrayList<Integer> indices = new ArrayList<>();
         for(int x = 0; x < belief.length; x++){
@@ -244,31 +234,51 @@ public class PartialPrey {
         return indices.get(randInt);
     }
 
-//    updates belief after no new info
-    public static void matmul(){
-        double[] arr = belief.clone();
-        for(int x = 0; x < 50; x++){
-            belief[x] = dotProduct(x, arr);
-        }
-//        normalization
+    //    never changes
+    public static void updateTransMatrix(ArrayList<ArrayList<Graph.Node>> maze){
+        for(int x = 0; x < maze.size(); x++){
+            for(int y = 0; y < maze.get(x).size(); y++){
+//                transMatrix[x][y] = 1.0/(maze.get(x).size());
+
+//                SOMETHING ELSE; CHECK NOTES;
 
 
-    }
-    public static void normalize(){
-        double sum = beliefSum(belief);
-        for(int x = 0; x < 50; x++){
-            belief[x] /= sum;
+
+
+            }
         }
     }
-//    dot product to update belief with transMatrix
-    public static double dotProduct(int row, double[] temp) {
-        double sum = 0;
-        for (int x = 0; x < 50; x++) {
-            sum += temp[x] * transMatrix[row][x];
+
+    public static List<Graph.Node> bfs(int start, Agent agent, ArrayList<ArrayList<Graph.Node>> maze){
+//      fringe to store cells that need to be visited
+        Queue<Graph.Node> fringe = new LinkedList<>();
+        HashSet<Integer> visited = new HashSet();
+
+//      add beginning cell to fringe and visited
+        fringe.add(new Graph.Node(start,null));
+        visited.add(start);
+        while(!fringe.isEmpty()) {
+//          use poll instead of remove so no errors are thrown
+            Graph.Node curr = fringe.poll();
+            int ind = curr.getCell();
+//          if arrived at destination
+            if (agent.getCell() == ind) {
+                List<Graph.Node> path = new ArrayList<>();;
+                getPath(curr, path);
+                return path;
+            }
+//          checks all neighbors to see if they are eligible to be added to the fringe
+            List<Graph.Node> edges = maze.get(ind).subList(1, maze.get(ind).size());
+            for(Graph.Node n: edges)
+            {
+                if(!visited.contains(n.getCell())) {
+                    visited.add(n.getCell());
+                    fringe.add(new Graph.Node(n.getCell(), curr));
+                }
+            }
 
         }
-
-        return sum;
-
+        return null;
     }
+
 }
