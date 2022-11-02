@@ -18,6 +18,7 @@ public class PartialPrey {
         Agent agent = new Agent();
         Prey prey = new Prey(agent);
         Predator predator = new Predator(agent);
+//        initialize belief vector and transition matrix
         initTransMatrix(maze);
         initialBelief(agent.getCell());
 
@@ -107,10 +108,8 @@ public class PartialPrey {
             if(agent.getCell() == prey.getCell()){
                 return "true";
             }
-//            bayes(false, agent.getCell(), agent);
             matmul();
             normalize();
-//            System.out.println(beliefSum(belief));
 
 
 //            pred move
@@ -140,16 +139,140 @@ public class PartialPrey {
             count++;
 
 
-//            return "false";
 
         }
 
-//        return "false";
+    }
+
+    public static String agentFour(ArrayList<ArrayList<Graph.Node>> maze){
+//        initializes all player positions
+        Agent agent = new Agent();
+        Prey prey = new Prey(agent);
+        Predator predator = new Predator(agent);
+        initTransMatrix(maze);
+        initialBelief(agent.getCell());
+
+        int count = 0;
+//        will return only when Agent dies or succeeds
+        while(true){
+//            hung
+            if (count == 100)
+                return "hung";
+
+//            creates arraylists of neighbors, predator distances, and prey distances
+            ArrayList<Graph.Node> neighbors = maze.get(agent.getCell());
+
+//            random survey
+            int surveyedNode = randomSurvey();
+            if(prey.getCell() == surveyedNode){
+                bayes(true, prey.getCell(), agent);
+            } else {
+                bayes(false, surveyedNode, agent);
+            }
+            normalize();
+
+            ArrayList<Graph.Node> preyNeighbors = maze.get(maxIndex(maxBelief()));
+
+//            calls utility function
+            int cell = bestCell(neighbors, predator, preyNeighbors, maze);
+            agent.setCell(cell);
+
+//            win
+            if(agent.getCell() == prey.getCell()){
+                return "true";
+            }
+            bayes(false,  agent.getCell(), agent);
+            normalize();
+//          prey move
+
+            prey.setCell(Prey.choosesNeighbors(prey.getCell(), maze));
+//            win
+            if(agent.getCell() == prey.getCell()){
+                return "true";
+            }
+            matmul();
+            normalize();
+
+
+//            pred move
+            ArrayList<Graph.Node> predatorNeighbors = maze.get(predator.getCell());
+            ArrayList<Integer> agentDistances = new ArrayList<>();
+
+            for(int x = 1; x < predatorNeighbors.size(); x++){
+                List<Graph.Node> agentList = Predator.bfs(predatorNeighbors.get(x).getCell(), agent, maze);
+                agentDistances.add(agentList.size());
+            }
+//            randomly choose neighbor for ties
+            int min = Collections.min(agentDistances);
+
+            ArrayList<Integer> indices = new ArrayList<>();
+            for(int x = 0; x < agentDistances.size(); x++){
+                if (agentDistances.get(x) == min){
+                    indices.add(x);
+                }
+            }
+            int randInt = new Random().nextInt(indices.size());
+            predator.setCell(predatorNeighbors.get(indices.get(randInt)+1).getCell());
+//            dead
+            if(agent.getCell() == predator.getCell()){
+                return "false";
+            }
+
+            count++;
+
+
+
+        }
+
+    }
+
+
+
+
+    //    utility function
+    public static int bestCell(ArrayList<Graph.Node> neighbors, Predator predator, ArrayList<Graph.Node> preyNeighbors, ArrayList<ArrayList<Graph.Node>> maze){
+
+//      stores utility of all agent cells
+        ArrayList<Double> utilities = new ArrayList<>();
+        ArrayList<Double> preyDistances = new ArrayList<>();
+        ArrayList<Integer> predatorDistances = new ArrayList<>();
+//        collects all preyDistances and predatorDistances
+        for(int x = 0; x < neighbors.size(); x++) {
+            double aveDistance = 0.0;
+//          gets of average distances from each possible agent to cluster of prey neighbors
+            for (int y = 0; y < preyNeighbors.size(); y++) {
+                int currDistance = searchPrey(neighbors.get(x).getCell(), preyNeighbors.get(y).getCell(), maze).size();
+                aveDistance += currDistance;
+
+
+            }
+            aveDistance /= preyNeighbors.size();
+            preyDistances.add(aveDistance);
+            List<Graph.Node> predatorList = searchPred(neighbors.get(x).getCell(), predator.getCell(), maze);
+            predatorDistances.add(predatorList.size());
+            utilities.add(predatorList.size() - aveDistance);
+        }
+//        arbitrary number
+        double weightPrey   =    1.0/2;
+        double weightPredator = -1.0/2;
+//        updates utility of cell depending  on whether current cell has closest distance to predator or closest distance to prey
+        for(int x = 0; x < neighbors.size(); x++){
+            if(Collections.min(preyDistances) == preyDistances.get(x))
+                utilities.set(x, utilities.get(x) + 75*(weightPrey/preyDistances.size()));
+            if(Collections.min(predatorDistances) == predatorDistances.get(x))
+                utilities.set(x, utilities.get(x) + 100*(weightPredator/predatorDistances.size()));
+        }
+
+//        Two options: 1) move towards cell with highest utility when all greatest utility is positive2) move away from predator
+        if(Collections.max(utilities) > 0)
+            return neighbors.get(utilities.indexOf(Collections.max(utilities))).getCell();
+        else
+            return neighbors.get(predatorDistances.indexOf(Collections.max(predatorDistances))).getCell();
     }
 
 //    updates belief when new node is surveyed; Phrases: found, moving, not found
     public static void bayes(boolean found, int cell, Agent agent){
-
+//        if node surveyed contains prey
         if (found){
             for (int x = 0; x < belief.length; x++) {
                 if (cell == x) {
@@ -161,6 +284,7 @@ public class PartialPrey {
             }
 
         } else {
+//            update all probabilities based on removal of current probability
             double removedProbability = belief[cell];
             for (int x = 0; x < belief.length; x++) {
                 if(x == agent.getCell() || x == cell){
@@ -168,27 +292,12 @@ public class PartialPrey {
                 }  else {
                     belief[x] /= (1-removedProbability);
                 }
-
             }
-
-
         }
-//        else if(found.equals("not found")){
-//            for(int x = 0; x < belief.length; x++){
-//                if(x == agent.getCell()){
-//                    belief[x] = 0;
-//                } else if(cell == x){
-//                    belief[x] = 0;
-//                } else {
-//                    belief[x] /= size;
-//                }
-//            }
-//        }
-
     }
 
-//    return denominator by counting non-zero cells
 
+//    returns most probable prey cell; used in conjunction with maxIndex
     public static int maxIndex(double value){
         for(int x = 0; x < belief.length; x++){
             if(value == belief[x])
@@ -196,12 +305,10 @@ public class PartialPrey {
         }
         return -1;
     }
-
+//  returns greatest probability in belief; used in conjunction with maxIndex
     public static double maxBelief(){
         return Arrays.stream(belief).max().getAsDouble();
     }
-
-
 
 //    initializes 1/49 for every non-agent cell
     public static void initialBelief(int agentCell){
@@ -212,7 +319,6 @@ public class PartialPrey {
             else {
                 belief[x] = 0.0;
             }
-//            System.out.println(belief[x]);
 
         }
     }
@@ -254,12 +360,15 @@ public class PartialPrey {
 
 
     }
+
+//    normalizes values
     public static void normalize(){
         double sum = beliefSum(belief);
         for(int x = 0; x < 50; x++){
             belief[x] /= sum;
         }
     }
+
 //    dot product to update belief with transMatrix
     public static double dotProduct(int row, double[] temp) {
         double sum = 0;

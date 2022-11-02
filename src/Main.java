@@ -86,9 +86,9 @@ public class Main {
     }
 
     public static void runAll(){
-        int[] success = new int[4];
-        int[] hung = new int[4];
-        int[] fail = new int[4];
+        int[] success = new int[5];
+        int[] hung = new int[5];
+        int[] fail = new int[5];
 
         long total = System.nanoTime();
 
@@ -116,13 +116,13 @@ public class Main {
                     hung[3]++;
                 else
                     fail[3]++;
-//                result = PartialPrey.agentFour(maze);
-//                if (result.equals("true"))
-//                    success[3]++;
-//                else if (result.equals("hung"))
-//                    hung[3]++;
-//                else
-//                    fail[3]++;
+                result = PartialPrey.agentFour(maze);
+                if (result.equals("true"))
+                    success[4]++;
+                else if (result.equals("hung"))
+                    hung[4]++;
+                else
+                    fail[4]++;
             }
 
         }
