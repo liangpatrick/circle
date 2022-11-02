@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1522e6cc-1949-4fa9-9738-bdb20339ddb5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Agents/PartialPrey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Circle.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Circle.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Agents/CompleteInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/CompleteInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Environment/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Environment/Graph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Environment/Predator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Environment/Predator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Environment/Prey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Environment/Prey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +52,7 @@
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "//wsl$/Ubuntu-20.04/home/liangpatrick/cs520/Maze",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "ssh.settings"
@@ -79,7 +83,7 @@
       <workItem from="1666225470054" duration="15555000" />
       <workItem from="1666328075673" duration="383000" />
       <workItem from="1666328524066" duration="21593000" />
-      <workItem from="1666640604545" duration="13680000" />
+      <workItem from="1666640604545" duration="55140000" />
     </task>
     <servers />
   </component>

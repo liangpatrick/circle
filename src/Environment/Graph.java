@@ -8,16 +8,13 @@ public class Graph {
     Node node;
     public static class Node{
         public Node prev;
-
-
-        int agentDistance;
+        public int level;
         int cell;
 
 
-//        Predator constructor
-        public Node(int cell,int agentDistance){
+        public Node(int cell,int level){
             this.cell = cell;
-            this.agentDistance = agentDistance;
+            this.level = level;
 
 
         }
@@ -34,10 +31,6 @@ public class Graph {
 
         public int getCell(){
             return cell;
-        }
-
-        public void setCell(int cell){
-            this.cell = cell;
         }
 
         @Override
@@ -71,10 +64,6 @@ public class Graph {
 
     }
 
-    public Graph(int cell, Node node){
-        this.cell = cell;
-        this.node = node;
-    }
 //  wrapper method which generates a graph that satisfies conditions
 
     public static ArrayList<ArrayList<Node>> buildGraph(){
@@ -105,10 +94,10 @@ public class Graph {
         return graph;
 
     }
-
-    static boolean contains(ArrayList<Node> skeleton, Node node){
-        for(int x = 0; x < skeleton.size(); x++){
-            if (skeleton.get(x).getCell() == node.getCell()){
+//  checks if the current Node is in the list of neighbors
+    static boolean contains(ArrayList<Node> neighbors, Node node){
+        for(int x = 0; x < neighbors.size(); x++){
+            if (neighbors.get(x).getCell() == node.getCell()){
                 return true;
             }
         }
@@ -117,10 +106,12 @@ public class Graph {
     }
 //  adds random edges
     static ArrayList<ArrayList<Node>> addRandomEdges(ArrayList<ArrayList<Node>> skeleton){
+//        initializes cells
         ArrayList<Node> full = new ArrayList<>();
         for(ArrayList<Node> arr: skeleton) {
             full.add(arr.get(0));
         }
+//        accounts for worst case of max edges
         while(!full.isEmpty()){
             int index = new Random().nextInt(full.size());
 
@@ -133,7 +124,6 @@ public class Graph {
 
             int newEdge = value + range * sign;
 
-//            wrapAround
             Node newNode = null;
             int count = 0;
             while(newNode == null){
@@ -141,28 +131,29 @@ public class Graph {
                 sign = new Random().nextInt(2);
                 sign = sign == 1 ? -1 : 1;
                 newEdge = value + range* sign;
+//                wraparound
                 newEdge = newEdge < 0 ? 50 + newEdge : newEdge;
                 newEdge = newEdge > 49 ? newEdge - 50 : newEdge;
 
                 newNode = full.contains(new Node(newEdge)) ? full.get(full.indexOf(new Node(newEdge))) : null;
 
-
+//              checks if newNode is valid
                 if (newNode != null && contains(skeleton.get(currNode.getCell()), newNode)){
                     newNode = null;
                     continue;
                 }
                 count += 1;
-//                abritray limit to exhaust all possibilities that no possible edge
+//                abritray limit to exhaust all possibilities that no possible edge can be added
                 if (count > 50){
-
                     return skeleton;
                 }
             }
 
-
+//          error check
             if(contains(skeleton.get(currNode.getCell()), newNode)){
                 return null;
             }
+//            updates skeleton and removes from full so that no duplicates can happen
             skeleton.get(currNode.getCell()).add(new Node(newEdge));
             skeleton.get(newNode.getCell()).add(new Node(value));
             full.remove(full.indexOf(currNode));
@@ -175,13 +166,9 @@ public class Graph {
         return skeleton;
     }
 
+//    used for error checking
     public static void printGraph(ArrayList<ArrayList<Node>> graph){
          for(ArrayList<Node> key: graph) {
-
-//             System.out.print(key + ": " );
-//             graph.get(key.cell).forEach(entry -> {
-//                 System.out.print(entry + "; ");
-//             });
              System.out.println(key.toString());
              System.out.println();
          }

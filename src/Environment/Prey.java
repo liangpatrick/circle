@@ -6,6 +6,7 @@ import java.util.Random;
 public class Prey {
     int cell;
     public Prey(Agent agent){
+//        doesn't occupy same cell as agent
         int prey = new Random().nextInt(49) + 1;
         while(prey == agent.getCell()){
             prey = new Random().nextInt(49) + 1;
