@@ -22,7 +22,7 @@ public class Predator {
     public static List<Graph.Node> bfs(int start, Agent agent, ArrayList<ArrayList<Graph.Node>> maze){
 //      fringe to store cells that need to be visited
         Queue<Graph.Node> fringe = new LinkedList<>();
-        HashSet<Integer> visited = new HashSet();
+        HashSet<Integer> visited = new HashSet<Integer>();
 
 //      add beginning cell to fringe and visited
         fringe.add(new Graph.Node(start,null));
@@ -33,7 +33,7 @@ public class Predator {
             int ind = curr.getCell();
 //          if arrived at destination
             if (agent.getCell() == ind) {
-                List<Graph.Node> path = new ArrayList<>();;
+                List<Graph.Node> path = new ArrayList<>();
                 getPath(curr, path);
                 return path;
             }
@@ -57,5 +57,12 @@ public class Predator {
             path.add(node);
 
         }
+    }
+
+
+//  randomly chooses neighbor
+    public static int choosesNeighbors(int cell, ArrayList<ArrayList<Graph.Node>> maze){
+        int newCell = new Random().nextInt(maze.get(cell).size()-1);
+        return maze.get(cell).get(newCell+1).getCell();
     }
 }

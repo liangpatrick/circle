@@ -4,28 +4,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Graph {
-    int cell;
-    Node node;
     public static class Node{
         public Node prev;
-        public int level;
         int cell;
-        double distance;
 
 
-        public Node(int cell,int level){
-            this.cell = cell;
-            this.level = level;
 
 
-        }
 
-        public Node(int cell, double distance){
-            this.cell = cell;
-            this.distance = distance;
-
-
-        }
 
         public Node(int cell){
             this.cell = cell;
@@ -36,9 +22,6 @@ public class Graph {
             this.prev = prev;
         }
 
-        public double getDistance(){
-            return distance;
-        }
 
 
         public int getCell(){

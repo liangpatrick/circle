@@ -1,4 +1,5 @@
 import Agents.CompleteInformation;
+import Agents.PartialPredator;
 import Agents.PartialPrey;
 import Environment.*;
 
@@ -85,10 +86,97 @@ public class Main {
 //        System.out.println();
     }
 
+    public static void runFour(){
+        double aveSuccess = 0;
+        int hung = 0;
+        double fail = 0;
+        long total = System.nanoTime();
+        for(int graphs = 1; graphs <= 100; graphs++) {
+            int success = 0;
+            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
+            for (int runs = 1; runs <= 30; runs++) {
+                String result = PartialPrey.agentFour(maze);
+                if (result.equals("true"))
+                    success++;
+                else if (result.equals("hung"))
+                    hung++;
+                else
+                    fail++;
+            }
+            aveSuccess += success;
+        }
+
+        long endTime = System.nanoTime();
+        long duration = (endTime - total)/(long)Math.pow(10,9);
+        System.out.println(duration);
+        System.out.println(hung);
+        System.out.println("Hung out of Loss: " + hung/(fail+hung));
+        System.out.println("A4: " + (aveSuccess)/3000.0);
+//        System.out.println();
+    }
+
+    public static void runFive(){
+        double aveSuccess = 0;
+        int hung = 0;
+        double fail = 0;
+        long total = System.nanoTime();
+        for(int graphs = 1; graphs <= 100; graphs++) {
+            int success = 0;
+            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
+            for (int runs = 1; runs <= 30; runs++) {
+                String result = PartialPredator.agentFive(maze);
+                if (result.equals("true"))
+                    success++;
+                else if (result.equals("hung"))
+                    hung++;
+                else
+                    fail++;
+            }
+            aveSuccess += success;
+        }
+
+        long endTime = System.nanoTime();
+        long duration = (endTime - total)/(long)Math.pow(10,9);
+        System.out.println(duration);
+        System.out.println(hung);
+        System.out.println("Hung out of Loss: " + hung/(fail+hung));
+        System.out.println("A5: " + (aveSuccess)/3000.0);
+//        System.out.println();
+    }
+
+    public static void runSix(){
+        double aveSuccess = 0;
+        int hung = 0;
+        double fail = 0;
+        long total = System.nanoTime();
+        for(int graphs = 1; graphs <= 100; graphs++) {
+            int success = 0;
+            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
+            for (int runs = 1; runs <= 30; runs++) {
+                String result = PartialPredator.agentSix(maze);
+                if (result.equals("true"))
+                    success++;
+                else if (result.equals("hung"))
+                    hung++;
+                else
+                    fail++;
+            }
+            aveSuccess += success;
+        }
+
+        long endTime = System.nanoTime();
+        long duration = (endTime - total)/(long)Math.pow(10,9);
+        System.out.println(duration);
+        System.out.println(hung);
+        System.out.println("Hung out of Loss: " + hung/(fail+hung));
+        System.out.println("A6: " + (aveSuccess)/3000.0);
+//        System.out.println();
+    }
+
     public static void runAll(){
-        int[] success = new int[5];
-        int[] hung = new int[5];
-        int[] fail = new int[5];
+        int[] success = new int[7];
+        int[] hung = new int[7];
+        int[] fail = new int[7];
 
         long total = System.nanoTime();
 
@@ -102,6 +190,7 @@ public class Main {
                     hung[1]++;
                 else
                     fail[1]++;
+
                 result = CompleteInformation.agentTwo(maze);
                 if (result.equals("true"))
                     success[2]++;
@@ -109,6 +198,7 @@ public class Main {
                     hung[2]++;
                 else
                     fail[2]++;
+
                 result = PartialPrey.agentThree(maze);
                 if (result.equals("true"))
                     success[3]++;
@@ -116,6 +206,7 @@ public class Main {
                     hung[3]++;
                 else
                     fail[3]++;
+
                 result = PartialPrey.agentFour(maze);
                 if (result.equals("true"))
                     success[4]++;
@@ -123,6 +214,16 @@ public class Main {
                     hung[4]++;
                 else
                     fail[4]++;
+
+
+                result = PartialPredator.agentSix(maze);
+                if (result.equals("true"))
+                    success[6]++;
+                else if (result.equals("hung"))
+                    hung[6]++;
+                else
+                    fail[6]++;
+
             }
 
         }
@@ -136,28 +237,29 @@ public class Main {
         }
 
 
+
     }
 
 
     public static void main (String args[]) {
         ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-
 //        runOne();
 //        runTwo();
 //        runThree();
-        runAll();
+//        runFour();
+        runFive();
+        runSix();
+
+//        runAll();
 
 
 
-        String result = CompleteInformation.agentTwo(maze);
+        String result = PartialPredator.agentSix(maze);
         if (result.equals("true"))
             System.out.println("success");
 
 
-
-
-
-
     }
+
 
 }

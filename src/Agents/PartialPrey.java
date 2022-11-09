@@ -100,7 +100,6 @@ public class PartialPrey {
             }
             bayes(false,  agent.getCell(), agent);
             normalize();
-//            System.out.println(beliefSum(belief));
 //          prey move
 
             prey.setCell(Prey.choosesNeighbors(prey.getCell(), maze));
@@ -270,7 +269,7 @@ public class PartialPrey {
             return neighbors.get(predatorDistances.indexOf(Collections.max(predatorDistances))).getCell();
     }
 
-//    updates belief when new node is surveyed; Phrases: found, moving, not found
+//    updates belief when new node is surveyed
     public static void bayes(boolean found, int cell, Agent agent){
 //        if node surveyed contains prey
         if (found){
@@ -373,7 +372,7 @@ public class PartialPrey {
     public static double dotProduct(int row, double[] temp) {
         double sum = 0;
         for (int x = 0; x < 50; x++) {
-            sum += temp[x] * transMatrix[row][x];
+            sum += temp[x] * transMatrix[x][row];
 
         }
 
