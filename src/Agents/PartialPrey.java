@@ -26,7 +26,7 @@ public class PartialPrey {
 //        will return only when Agent dies or succeeds
         while(true){
 //            hung
-            if (count == 100)
+            if (count == 150)
                 return "hung";
 
 //            creates arraylists of neighbors, predator distances, and prey distances
@@ -155,7 +155,7 @@ public class PartialPrey {
 //        will return only when Agent dies or succeeds
         while(true){
 //            hung
-            if (count == 100)
+            if (count == 150)
                 return "hung";
 
 //            creates arraylists of neighbors, predator distances, and prey distances

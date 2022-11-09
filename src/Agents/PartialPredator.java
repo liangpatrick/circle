@@ -26,8 +26,8 @@ public class PartialPredator {
 //        will return only when Agent dies or succeeds
         while(true){
 //            hung
-//            if (count == 250)
-//                return "hung";
+            if (count == 150)
+                return "hung";
 
 //            creates arraylists of neighbors, predator distances, and prey distances
             ArrayList<Graph.Node> neighbors = maze.get(agent.getCell());
@@ -150,17 +150,19 @@ public class PartialPredator {
             updateTransMatrix(agent, maze);
 
             double[] temp1 = belief.clone();
-
+            matmul(temp1);
+            normalize(temp1);
             for(int x = 0; x < temp1.length; x++)
                 temp1[x] *= .6;
 
-            matmul(temp1);
+
 
             double[] temp2 = belief.clone();
-
+            matmulRand(temp2);
+            normalize(temp2);
             for(int x = 0; x < temp2.length; x++)
                 temp2[x] *= .4;
-            matmulRand(temp2);
+
 
             for(int x = 0; x < belief.length; x++)
                 belief[x] = temp1[x] + temp2[x];
@@ -188,8 +190,8 @@ public class PartialPredator {
 //        will return only when Agent dies or succeeds
         while(true){
 //            hung
-//            if (count == 250)
-//                return "hung";
+            if (count == 150)
+                return "hung";
 
 //            creates arraylists of neighbors
             ArrayList<Graph.Node> neighbors = maze.get(agent.getCell());
@@ -256,17 +258,19 @@ public class PartialPredator {
             updateTransMatrix(agent, maze);
 
             double[] temp1 = belief.clone();
-
+            matmul(temp1);
+            normalize(temp1);
             for(int x = 0; x < temp1.length; x++)
                 temp1[x] *= .6;
 
-            matmul(temp1);
+
 
             double[] temp2 = belief.clone();
-
+            matmulRand(temp2);
+            normalize(temp2);
             for(int x = 0; x < temp2.length; x++)
                 temp2[x] *= .4;
-            matmulRand(temp2);
+
 
             for(int x = 0; x < belief.length; x++)
                 belief[x] = temp1[x] + temp2[x];
@@ -309,9 +313,9 @@ public class PartialPredator {
 //        updates utility of cell depending  on whether current cell has closest distance to predator or closest distance to prey
         for(int x = 0; x < neighbors.size(); x++){
             if(Collections.min(preyDistances) == preyDistances.get(x))
-                utilities.set(x, utilities.get(x) + 75*(weightPrey/preyDistances.size()));
+                utilities.set(x, utilities.get(x) + 100*(weightPrey/preyDistances.size()));
             if(Collections.min(predatorDistances) == predatorDistances.get(x))
-                utilities.set(x, utilities.get(x) + 100*(weightPredator/predatorDistances.size()));
+                utilities.set(x, utilities.get(x) + 125*(weightPredator/predatorDistances.size()));
         }
 
 //        Two options: 1) move towards cell with highest utility when all greatest utility is positive2) move away from predator
