@@ -338,12 +338,15 @@ public class PartialPrey {
 //    returns random cell that has the highest likelihood of being prey
     public static int randomSurvey(){
         ArrayList<Integer> indices = new ArrayList<>();
+        double max = maxBelief();
         for(int x = 0; x < belief.length; x++){
 //            stores all indices that are have a probability of having prey
-            if(belief[x] > 0){
+            if(belief[x] == max){
                 indices.add(x);
             }
         }
+        if(indices.size() > 1)
+            return indices.get(0);
 //        randomly chooses index from arraylist
         int randInt = new Random().nextInt(indices.size());
         return indices.get(randInt);
@@ -379,4 +382,6 @@ public class PartialPrey {
         return sum;
 
     }
+
+
 }

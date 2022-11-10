@@ -85,7 +85,6 @@ public class Main {
         System.out.println("A3: " + (aveSuccess)/3000.0);
 //        System.out.println();
     }
-
     public static void runFour(){
         double aveSuccess = 0;
         int hung = 0;
@@ -114,7 +113,6 @@ public class Main {
         System.out.println("A4: " + (aveSuccess)/3000.0);
 //        System.out.println();
     }
-
     public static void runFive(){
         double aveSuccess = 0;
         int hung = 0;
@@ -143,7 +141,6 @@ public class Main {
         System.out.println("A5: " + (aveSuccess)/3000.0);
 //        System.out.println();
     }
-
     public static void runSix(){
         double aveSuccess = 0;
         int hung = 0;
@@ -252,9 +249,7 @@ public class Main {
 
 //        runAll();
 
-
-
-        String result = PartialPredator.agentSix(maze);
+        String result = PartialPredator.agentFive(maze);
         if (result.equals("true"))
             System.out.println("success");
 
