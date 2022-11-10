@@ -345,7 +345,7 @@ public class PartialPrey {
                 indices.add(x);
             }
         }
-        if(indices.size() > 1)
+        if(indices.size() == 1)
             return indices.get(0);
 //        randomly chooses index from arraylist
         int randInt = new Random().nextInt(indices.size());

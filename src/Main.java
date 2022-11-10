@@ -242,8 +242,8 @@ public class Main {
         ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
 //        runOne();
 //        runTwo();
-//        runThree();
-//        runFour();
+        runThree();
+        runFour();
         runFive();
         runSix();
 
