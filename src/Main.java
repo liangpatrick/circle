@@ -1,3 +1,4 @@
+import Agents.CombinedPartialInformation;
 import Agents.CompleteInformation;
 import Agents.PartialPredator;
 import Agents.PartialPrey;
@@ -169,11 +170,66 @@ public class Main {
         System.out.println("A6: " + (aveSuccess)/3000.0);
 //        System.out.println();
     }
+    public static void runSeven(){
+        double aveSuccess = 0;
+        int hung = 0;
+        double fail = 0;
+        long total = System.nanoTime();
+        for(int graphs = 1; graphs <= 100; graphs++) {
+            int success = 0;
+            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
+            for (int runs = 1; runs <= 30; runs++) {
+                String result = CombinedPartialInformation.agentSeven(maze);
+                if (result.equals("true"))
+                    success++;
+                else if (result.equals("hung"))
+                    hung++;
+                else
+                    fail++;
+            }
+            aveSuccess += success;
+        }
 
+        long endTime = System.nanoTime();
+        long duration = (endTime - total)/(long)Math.pow(10,9);
+        System.out.println(duration);
+        System.out.println(hung);
+        System.out.println("Hung out of Loss: " + hung/(fail+hung));
+        System.out.println("A7: " + (aveSuccess)/3000.0);
+//        System.out.println();
+    }
+    public static void runEight(){
+        double aveSuccess = 0;
+        int hung = 0;
+        double fail = 0;
+        long total = System.nanoTime();
+        for(int graphs = 1; graphs <= 100; graphs++) {
+            int success = 0;
+            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
+            for (int runs = 1; runs <= 30; runs++) {
+                String result = CombinedPartialInformation.agentEight(maze);
+                if (result.equals("true"))
+                    success++;
+                else if (result.equals("hung"))
+                    hung++;
+                else
+                    fail++;
+            }
+            aveSuccess += success;
+        }
+
+        long endTime = System.nanoTime();
+        long duration = (endTime - total)/(long)Math.pow(10,9);
+        System.out.println(duration);
+        System.out.println(hung);
+        System.out.println("Hung out of Loss: " + hung/(fail+hung));
+        System.out.println("A8: " + (aveSuccess)/3000.0);
+//        System.out.println();
+    }
     public static void runAll(){
-        int[] success = new int[7];
-        int[] hung = new int[7];
-        int[] fail = new int[7];
+        int[] success = new int[9];
+        int[] hung = new int[9];
+        int[] fail = new int[9];
 
         long total = System.nanoTime();
 
@@ -211,7 +267,13 @@ public class Main {
                     hung[4]++;
                 else
                     fail[4]++;
-
+                result = PartialPredator.agentFive(maze);
+                if (result.equals("true"))
+                    success[5]++;
+                else if (result.equals("hung"))
+                    hung[5]++;
+                else
+                    fail[5]++;
 
                 result = PartialPredator.agentSix(maze);
                 if (result.equals("true"))
@@ -221,7 +283,26 @@ public class Main {
                 else
                     fail[6]++;
 
+//                result = CombinedPartialInformation.agentSeven(maze);
+//                if (result.equals("true"))
+//                    success[7]++;
+//                else if (result.equals("hung"))
+//                    hung[7]++;
+//                else
+//                    fail[7]++;
+//
+//                result = CombinedPartialInformation.agentEight(maze);
+//                if (result.equals("true"))
+//                    success[8]++;
+//                else if (result.equals("hung"))
+//                    hung[8]++;
+//                else
+//                    fail[8]++;
+
             }
+            long endTime = System.nanoTime();
+            long duration = (endTime - total)/(long)Math.pow(10,9);
+            System.out.println("Iter: " + graphs + "; Time:" + duration);
 
         }
         long endTime = System.nanoTime();
@@ -242,10 +323,10 @@ public class Main {
         ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
 //        runOne();
 //        runTwo();
-        runThree();
-        runFour();
-        runFive();
-        runSix();
+//        runThree();
+//        runFour();
+//        runFive();
+//        runSix();
 
 //        runAll();
 

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1522e6cc-1949-4fa9-9738-bdb20339ddb5" name="Changes" comment="Agent 6 Done">
+    <list default="true" id="1522e6cc-1949-4fa9-9738-bdb20339ddb5" name="Changes" comment="Fixed Survey">
+      <change afterPath="$PROJECT_DIR$/src/Agents/CombinedPartialInformation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Agents/CompleteInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/CompleteInformation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Agents/PartialPredator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/PartialPredator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Agents/PartialPrey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/PartialPrey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
@@ -81,7 +83,7 @@
       <workItem from="1666328524066" duration="21593000" />
       <workItem from="1666640604545" duration="68548000" />
       <workItem from="1667424450105" duration="20417000" />
-      <workItem from="1667950945919" duration="42299000" />
+      <workItem from="1667950945919" duration="48980000" />
     </task>
     <task id="LOCAL-00001" summary="Agent 5 Done">
       <created>1668026860449</created>
@@ -97,7 +99,21 @@
       <option name="project" value="LOCAL" />
       <updated>1668038289661</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Agent 6 'Done'">
+      <created>1668058609691</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1668058609691</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Fixed Survey">
+      <created>1668058781041</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1668058781041</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -117,7 +133,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Agent 5 Done" />
     <MESSAGE value="Agent 6 Done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Agent 6 Done" />
+    <MESSAGE value="Agent 6 'Done'" />
+    <MESSAGE value="Fixed Survey" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Survey" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Circle$Main.ic" NAME="Main Coverage Results" MODIFIED="1667510959029" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

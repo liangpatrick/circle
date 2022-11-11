@@ -20,7 +20,7 @@ public class CompleteInformation {
 //        will return only when Agent dies or succeeds
         while(true){
 //            hung
-            if (count == 150)
+            if (count == 5000)
                 return "hung";
 //            creates arraylists of neighbors, predator distances, and prey distances
             ArrayList<Graph.Node> neighbors = maze.get(agent.getCell());

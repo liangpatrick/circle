@@ -26,7 +26,7 @@ public class PartialPrey {
 //        will return only when Agent dies or succeeds
         while(true){
 //            hung
-            if (count == 150)
+            if (count == 5000)
                 return "hung";
 
 //            creates arraylists of neighbors, predator distances, and prey distances
@@ -155,7 +155,7 @@ public class PartialPrey {
 //        will return only when Agent dies or succeeds
         while(true){
 //            hung
-            if (count == 150)
+            if (count == 5000)
                 return "hung";
 
 //            creates arraylists of neighbors, predator distances, and prey distances
@@ -375,7 +375,7 @@ public class PartialPrey {
     public static double dotProduct(int row, double[] temp) {
         double sum = 0;
         for (int x = 0; x < 50; x++) {
-            sum += temp[x] * transMatrix[x][row];
+            sum += transMatrix[x][row] * temp[x];
 
         }
 
