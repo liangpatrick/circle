@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1522e6cc-1949-4fa9-9738-bdb20339ddb5" name="Changes" comment="CombinedPartialInformation init">
-      <change afterPath="$PROJECT_DIR$/src/Agents/TestAgent.java" afterDir="false" />
+    <list default="true" id="1522e6cc-1949-4fa9-9738-bdb20339ddb5" name="Changes" comment="Test Agent">
+      <change afterPath="$PROJECT_DIR$/src/Agents/FaultyCombinedPartialInformation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Agents/FixedFaultyCombinedPartialInformation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Agents/CombinedPartialInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/CombinedPartialInformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Agents/CompleteInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/CompleteInformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Agents/PartialPredator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/PartialPredator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Agents/PartialPrey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/PartialPrey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Environment/Prey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Environment/Prey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,6 +54,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;ssh.settings&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Agents" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -86,7 +87,7 @@
       <workItem from="1666640604545" duration="68548000" />
       <workItem from="1667424450105" duration="20417000" />
       <workItem from="1667950945919" duration="49347000" />
-      <workItem from="1668199750727" duration="24277000" />
+      <workItem from="1668199750727" duration="28400000" />
     </task>
     <task id="LOCAL-00001" summary="Agent 5 Done">
       <created>1668026860449</created>
@@ -130,7 +131,21 @@
       <option name="project" value="LOCAL" />
       <updated>1668140527007</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Finished Agents?">
+      <created>1668228886369</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1668228886369</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Test Agent">
+      <created>1668228905749</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1668228905749</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -154,7 +169,9 @@
     <MESSAGE value="Fixed Survey" />
     <MESSAGE value="Agent 5 and Agent 6 done" />
     <MESSAGE value="CombinedPartialInformation init" />
-    <option name="LAST_COMMIT_MESSAGE" value="CombinedPartialInformation init" />
+    <MESSAGE value="Finished Agents?" />
+    <MESSAGE value="Test Agent" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test Agent" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Circle$Main.ic" NAME="Main Coverage Results" MODIFIED="1667510959029" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
