@@ -24,6 +24,6 @@ public class Prey {
 //    randomly chooses between itself and its neighbors
     public static int choosesNeighbors(int cell, ArrayList<ArrayList<Graph.Node>> maze){
         int newCell = new Random().nextInt(maze.get(cell).size());
-        return maze.get(cell).get(newCell).cell;
+        return maze.get(cell).get(newCell).getCell();
     }
 }

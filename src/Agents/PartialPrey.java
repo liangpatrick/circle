@@ -35,6 +35,9 @@ public class PartialPrey {
             ArrayList<Integer> preyDistances = new ArrayList<>();
 //            random survey
             int surveyedNode = randomSurvey();
+//            System.out.println("Prey Surveyed Node: " + surveyedNode);
+//            System.out.println("Prey: " + prey.getCell());
+//            System.out.println("Prey Belief: " + maxIndex(maxBelief()) + ", " + maxBelief());
             if(prey.getCell() == surveyedNode){
                 bayes(true, prey.getCell(), agent);
             } else {
@@ -42,7 +45,9 @@ public class PartialPrey {
             }
             normalize();
 
+//            System.out.println("Prey Belief: " + maxIndex(maxBelief()) + ", " + maxBelief());
 
+            int preyCell = randomSurvey();
 //            adds distances to predator/prey from all neighbors
             for(int x = 0; x < neighbors.size(); x++){
                 List<Graph.Node> predatorList = searchPred(neighbors.get(x).getCell(), predator.getCell(), maze);
@@ -98,6 +103,8 @@ public class PartialPrey {
             if(agent.getCell() == prey.getCell()){
                 return "true";
             }
+            else if(agent.getCell() == predator.getCell())
+                return "false";
             bayes(false,  agent.getCell(), agent);
             normalize();
 //          prey move
@@ -112,24 +119,26 @@ public class PartialPrey {
 
 
 //            pred move
-            ArrayList<Graph.Node> predatorNeighbors = maze.get(predator.getCell());
-            ArrayList<Integer> agentDistances = new ArrayList<>();
+//            pred move
+            List<Graph.Node> predatorNeighbors = maze.get(predator.getCell()).subList(1, maze.get(predator.getCell()).size());
+            ArrayList<Integer> distances = new ArrayList<>();
 
-            for(int x = 1; x < predatorNeighbors.size(); x++){
+            for(int x = 0; x < predatorNeighbors.size(); x++){
                 List<Graph.Node> agentList = Predator.bfs(predatorNeighbors.get(x).getCell(), agent, maze);
-                agentDistances.add(agentList.size());
+                distances.add(agentList.size());
             }
 //            randomly choose neighbor for ties
-            int min = Collections.min(agentDistances);
+            int min = Collections.min(distances);
 
             ArrayList<Integer> indices = new ArrayList<>();
-            for(int x = 0; x < agentDistances.size(); x++){
-                if (agentDistances.get(x) == min){
+            for(int x = 0; x < distances.size(); x++){
+                if (distances.get(x) == min){
                     indices.add(x);
                 }
             }
             int randInt = new Random().nextInt(indices.size());
-            predator.setCell(predatorNeighbors.get(indices.get(randInt)+1).getCell());
+
+            predator.setCell(predatorNeighbors.get(indices.get(randInt)).getCell());
 //            dead
             if(agent.getCell() == predator.getCell()){
                 return "false";
@@ -180,6 +189,8 @@ public class PartialPrey {
             if(agent.getCell() == prey.getCell()){
                 return "true";
             }
+            else if(agent.getCell() == predator.getCell())
+                return "false";
             bayes(false,  agent.getCell(), agent);
             normalize();
 //          prey move
@@ -193,25 +204,28 @@ public class PartialPrey {
             normalize();
 
 
-//            pred move
-            ArrayList<Graph.Node> predatorNeighbors = maze.get(predator.getCell());
-            ArrayList<Integer> agentDistances = new ArrayList<>();
 
-            for(int x = 1; x < predatorNeighbors.size(); x++){
+
+
+//            pred move
+            List<Graph.Node> predatorNeighbors = maze.get(predator.getCell()).subList(1, maze.get(predator.getCell()).size());
+            ArrayList<Integer> distances = new ArrayList<>();
+
+            for(int x = 0; x < predatorNeighbors.size(); x++){
                 List<Graph.Node> agentList = Predator.bfs(predatorNeighbors.get(x).getCell(), agent, maze);
-                agentDistances.add(agentList.size());
+                distances.add(agentList.size());
             }
 //            randomly choose neighbor for ties
-            int min = Collections.min(agentDistances);
+            int min = Collections.min(distances);
 
             ArrayList<Integer> indices = new ArrayList<>();
-            for(int x = 0; x < agentDistances.size(); x++){
-                if (agentDistances.get(x) == min){
+            for(int x = 0; x < distances.size(); x++){
+                if (distances.get(x) == min){
                     indices.add(x);
                 }
             }
             int randInt = new Random().nextInt(indices.size());
-            predator.setCell(predatorNeighbors.get(indices.get(randInt)+1).getCell());
+            predator.setCell(predatorNeighbors.get(indices.get(randInt)).getCell());
 //            dead
             if(agent.getCell() == predator.getCell()){
                 return "false";
@@ -219,7 +233,7 @@ public class PartialPrey {
 
             count++;
 
-
+//            System.out.println();
 
         }
 
@@ -289,7 +303,7 @@ public class PartialPrey {
                 if(x == agent.getCell() || x == cell){
                     belief[x] = 0;
                 }  else {
-                    belief[x] /= (1-removedProbability);
+                    belief[x] /= (1.0-removedProbability);
                 }
             }
         }

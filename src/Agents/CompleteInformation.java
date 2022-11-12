@@ -81,7 +81,7 @@ public class CompleteInformation {
             if(agent.getCell() == prey.getCell()){
                 return "true";
             }
-            if(agent.getCell() == predator.getCell()){
+            else if(agent.getCell() == predator.getCell()){
                 return "false";
             }
 //          prey move
@@ -144,7 +144,8 @@ public class CompleteInformation {
 //            win
             if(agent.getCell() == prey.getCell()){
                 return "true";
-            }
+            } else if(agent.getCell() == predator.getCell())
+                return "false";
 //          prey move
             prey.setCell(Prey.choosesNeighbors(prey.getCell(), maze));
 //            win
