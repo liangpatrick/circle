@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1522e6cc-1949-4fa9-9738-bdb20339ddb5" name="Changes" comment="Test Agent">
-      <change afterPath="$PROJECT_DIR$/src/Agents/FaultyCombinedPartialInformation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Agents/FixedFaultyCombinedPartialInformation.java" afterDir="false" />
+    <list default="true" id="1522e6cc-1949-4fa9-9738-bdb20339ddb5" name="Changes" comment="Main">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Agents/CompleteInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/CompleteInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Agents/FaultyCombinedPartialInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/FaultyCombinedPartialInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Agents/FixedFaultyCombinedPartialInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/FixedFaultyCombinedPartialInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Agents/PartialPredator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/PartialPredator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Agents/PartialPrey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/PartialPrey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Agents/TestAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agents/TestAgent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Environment/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Environment/Agent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Environment/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Environment/Graph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Environment/Predator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Environment/Predator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Environment/Prey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Environment/Prey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,7 +95,7 @@
       <workItem from="1666640604545" duration="68548000" />
       <workItem from="1667424450105" duration="20417000" />
       <workItem from="1667950945919" duration="49347000" />
-      <workItem from="1668199750727" duration="28400000" />
+      <workItem from="1668199750727" duration="32721000" />
     </task>
     <task id="LOCAL-00001" summary="Agent 5 Done">
       <created>1668026860449</created>
@@ -145,7 +153,21 @@
       <option name="project" value="LOCAL" />
       <updated>1668228905749</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Faulty and Fixed Done??">
+      <created>1668233042661</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1668233042661</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Main">
+      <created>1668233092223</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1668233092223</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,7 +193,9 @@
     <MESSAGE value="CombinedPartialInformation init" />
     <MESSAGE value="Finished Agents?" />
     <MESSAGE value="Test Agent" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test Agent" />
+    <MESSAGE value="Faulty and Fixed Done??" />
+    <MESSAGE value="Main" />
+    <option name="LAST_COMMIT_MESSAGE" value="Main" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Circle$Main.ic" NAME="Main Coverage Results" MODIFIED="1667510959029" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

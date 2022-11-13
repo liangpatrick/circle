@@ -1,12 +1,17 @@
 package Agents;
 import Environment.*;
-import Environment.Graph;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+import java.util.Collections;
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.HashSet;
 
 import static Environment.Predator.getPath;
-import static java.util.Comparator.comparingDouble;
-import static java.util.Comparator.comparingInt;
+
 
 public class CompleteInformation {
     public static String agentOne(ArrayList<ArrayList<Graph.Node>> maze){
@@ -199,10 +204,12 @@ public class CompleteInformation {
 
 
             }
+//            stores average distances
             aveDistance /= preyNeighbors.size();
             preyDistances.add(aveDistance);
             List<Graph.Node> predatorList = searchPred(neighbors.get(x).getCell(), predator.getCell(), maze);
             predatorDistances.add(predatorList.size());
+//            stores initial utility values
             utilities.add(predatorList.size() - aveDistance);
         }
 //        arbitrary number
@@ -225,7 +232,7 @@ public class CompleteInformation {
 
 
 
-
+//  bfs
     public static List<Graph.Node> searchPred(int start, int pred, ArrayList<ArrayList<Graph.Node>> maze){
 //      fringe to store cells that need to be visited
         Queue<Graph.Node> fringe = new LinkedList<>();

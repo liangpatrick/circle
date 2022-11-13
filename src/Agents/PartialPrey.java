@@ -35,17 +35,14 @@ public class PartialPrey {
             ArrayList<Integer> preyDistances = new ArrayList<>();
 //            random survey
             int surveyedNode = randomSurvey();
-//            System.out.println("Prey Surveyed Node: " + surveyedNode);
-//            System.out.println("Prey: " + prey.getCell());
-//            System.out.println("Prey Belief: " + maxIndex(maxBelief()) + ", " + maxBelief());
             if(prey.getCell() == surveyedNode){
                 bayes(true, prey.getCell(), agent);
             } else {
                 bayes(false, surveyedNode, agent);
             }
+//            updates beliefs
             normalize();
 
-//            System.out.println("Prey Belief: " + maxIndex(maxBelief()) + ", " + maxBelief());
 
             int preyCell = randomSurvey();
 //            adds distances to predator/prey from all neighbors
@@ -105,6 +102,7 @@ public class PartialPrey {
             }
             else if(agent.getCell() == predator.getCell())
                 return "false";
+//            updates beliefs
             bayes(false,  agent.getCell(), agent);
             normalize();
 //          prey move
@@ -114,11 +112,11 @@ public class PartialPrey {
             if(agent.getCell() == prey.getCell()){
                 return "true";
             }
+//            belief distribution
             matmul();
             normalize();
 
 
-//            pred move
 //            pred move
             List<Graph.Node> predatorNeighbors = maze.get(predator.getCell()).subList(1, maze.get(predator.getCell()).size());
             ArrayList<Integer> distances = new ArrayList<>();
@@ -177,6 +175,7 @@ public class PartialPrey {
             } else {
                 bayes(false, surveyedNode, agent);
             }
+//            update beliefs
             normalize();
 
             ArrayList<Graph.Node> preyNeighbors = maze.get(maxIndex(maxBelief()));
@@ -194,12 +193,12 @@ public class PartialPrey {
             bayes(false,  agent.getCell(), agent);
             normalize();
 //          prey move
-
             prey.setCell(Prey.choosesNeighbors(prey.getCell(), maze));
 //            win
             if(agent.getCell() == prey.getCell()){
                 return "true";
             }
+//            distributes beliefs
             matmul();
             normalize();
 
@@ -233,7 +232,6 @@ public class PartialPrey {
 
             count++;
 
-//            System.out.println();
 
         }
 
@@ -372,7 +370,6 @@ public class PartialPrey {
         for(int x = 0; x < 50; x++){
             belief[x] = dotProduct(x, arr);
         }
-//        normalization
 
 
     }

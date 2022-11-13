@@ -4,6 +4,8 @@ import Environment.*;
 import java.util.*;
 
 public class Main {
+
+//    Runs all agents
     public static void runOne(){
         int success = 0;
         int hung = 0;

@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Prey {
     int cell;
+//    constructor for prey
     public Prey(Agent agent){
 //        doesn't occupy same cell as agent
         int prey = new Random().nextInt(49) + 1;
@@ -13,10 +14,11 @@ public class Prey {
         }
         this.cell = prey;
     }
-
+//    returns position of prey
     public int getCell(){
         return cell;
     }
+//    updates prey position
     public void setCell(int cell){
         this.cell = cell;
     }

@@ -40,6 +40,7 @@ public class PartialPredator {
             } else {
                 bayes(false, surveyedNode, agent);
             }
+//            belief updates
             belief = normalize(belief);
 
             int predatorCell = randomSurvey(agent,maze);
@@ -103,7 +104,7 @@ public class PartialPredator {
 //            dead
             else if(agent.getCell() == predator.getCell())
                 return "false";
-
+//          belief update
             bayes(false,  agent.getCell(), agent);
             belief  = normalize(belief);
 
@@ -147,7 +148,7 @@ public class PartialPredator {
             if(agent.getCell() == predator.getCell()){
                 return "false";
             }
-
+//            belief distribution
             updateTransMatrix(agent, maze);
 
             double[] temp1 = belief.clone();
@@ -198,7 +199,7 @@ public class PartialPredator {
             } else {
                 bayes(false, surveyedNode, agent);
             }
-
+//          belief updates
             belief = normalize(belief);
             ArrayList<Graph.Node> preyNeighbors = maze.get(prey.getCell());
 
@@ -210,9 +211,11 @@ public class PartialPredator {
             if(agent.getCell() == prey.getCell()){
                 return "true";
             }
+//            dead
             else if(agent.getCell() == predator.getCell())
                 return "false";
             bayes(false,  agent.getCell(), agent);
+//            updates belief
             belief = normalize(belief);
 //          prey move
 
@@ -252,7 +255,7 @@ public class PartialPredator {
             if(agent.getCell() == predator.getCell()){
                 return "false";
             }
-
+//          belief distribution
             updateTransMatrix(agent, maze);
 
             double[] temp1 = belief.clone();
@@ -301,11 +304,12 @@ public class PartialPredator {
 
 
             }
+//            stores average distances
             aveDistance /= preyNeighbors.size();
             preyDistances.add(aveDistance);
             List<Graph.Node> predatorList = searchPred(neighbors.get(x).getCell(), predator, maze);
-
             predatorDistances.add(predatorList.size());
+//            stores initial utility values
             utilities.add(predatorList.size() - aveDistance);
         }
 //        arbitrary number
@@ -363,15 +367,14 @@ public class PartialPredator {
             else {
                 belief[x] = 0.0;
             }
-//            System.out.println(belief[x]);
 
         }
     }
 
-
     public static void initRandTransMatrix(ArrayList<ArrayList<Graph.Node>> maze){
         for(int x = 0; x < maze.size(); x++){
             for(int y = 0; y < maze.get(x).size(); y++){
+//                updates neighbors with .4/number of neighbors
                 if(maze.get(x).get(0).getCell() !=  maze.get(x).get(y).getCell())
                     randTransMatrix[maze.get(x).get(0).getCell()][maze.get(x).get(y).getCell()] = (0.4/(maze.get(x).size()-1));
                 else
@@ -380,6 +383,7 @@ public class PartialPredator {
         }
     }
 
+//    updates trans matrix after avery agent move
     public static void updateTransMatrix(Agent agent, ArrayList<ArrayList<Graph.Node>> maze){
         for(int x = 0; x < maze.size(); x++){
 //            if (x == agent.getCell())
@@ -396,13 +400,9 @@ public class PartialPredator {
             int minimum = Collections.min(distances);
             int count = countMin(distances, minimum);
 
+//            updates current shortest path neighbors with .6/count
             for(int y = 0; y < 50; y++){
-//                if (y > 0)
-//                    transMatrix[x][y] = .4/(neighbors.size()-1);
                 transMatrix[y][x] = 0.0;
-//                if(neighbors.contains(new Graph.Node(y))){
-//                    transMatrix[y][x] = 0.4;
-//                }
                 if(neighbors.contains(new Graph.Node(y)) && minimum == distances.get(neighbors.indexOf(new Graph.Node(y)))) {
                     transMatrix[y][x] = (0.6/ count);
 

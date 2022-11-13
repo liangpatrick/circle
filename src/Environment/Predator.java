@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Predator {
     int cell;
+//    predator constructor
     public Predator(Agent agent){
 //        doesn't occupy same cell as agent
         int pred = new Random().nextInt(49) + 1;
@@ -12,9 +13,11 @@ public class Predator {
         }
         this.cell = pred;
     }
+//    return predator position
     public int getCell(){
         return cell;
     }
+//    updates cell of predator
     public void setCell(int cell){
         this.cell = cell;
     }
@@ -60,7 +63,7 @@ public class Predator {
     }
 
 
-//  randomly chooses neighbor
+//  randomly chooses neighbor(not itself)
     public static int choosesNeighbors(int cell, ArrayList<ArrayList<Graph.Node>> maze){
         int newCell = new Random().nextInt(maze.get(cell).size()-1);
         return maze.get(cell).get(newCell+1).getCell();

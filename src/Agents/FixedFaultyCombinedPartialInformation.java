@@ -12,6 +12,7 @@ import static Agents.CompleteInformation.searchPrey;
 import static Environment.Predator.bfs;
 
 public class FixedFaultyCombinedPartialInformation {
+//    static values to access and update values easier
     static double[] preyBelief = new double[50];
     static double[] predatorBelief = new double[50];
     static double[][] preyTransMatrix = new double[50][50];
@@ -448,11 +449,12 @@ public class FixedFaultyCombinedPartialInformation {
 
 
             }
+//            stores average distances
             aveDistance /= preyNeighbors.size();
             preyDistances.add(aveDistance);
             List<Graph.Node> predatorList = searchPred(neighbors.get(x).getCell(), predator, maze);
-
             predatorDistances.add(predatorList.size());
+//            stores initial utility values
             utilities.add(predatorList.size() - aveDistance);
         }
 //        arbitrary number
@@ -528,6 +530,7 @@ public class FixedFaultyCombinedPartialInformation {
     public static void preyInitTransMatrix(ArrayList<ArrayList<Graph.Node>> maze){
         for(int x = 0; x < maze.size(); x++){
             for(int y = 0; y < maze.get(x).size(); y++){
+//                initialize neighbors with only 1/number of neighbors including start
                 preyTransMatrix[maze.get(x).get(0).getCell()][maze.get(x).get(y).getCell()] = 1.0/(maze.get(x).size());
             }
         }
@@ -566,9 +569,7 @@ public class FixedFaultyCombinedPartialInformation {
         double sum = 0;
         for (int x = 0; x < 50; x++) {
             sum += preyTransMatrix[row][x] * temp[x];
-
         }
-
         return sum;
 
     }
@@ -625,7 +626,6 @@ public class FixedFaultyCombinedPartialInformation {
             else {
                 predatorBelief[x] = 0.0;
             }
-//            System.out.println(belief[x]);
 
         }
     }
@@ -634,6 +634,7 @@ public class FixedFaultyCombinedPartialInformation {
     public static void initRandTransMatrix(ArrayList<ArrayList<Graph.Node>> maze){
         for(int x = 0; x < maze.size(); x++){
             for(int y = 0; y < maze.get(x).size(); y++){
+//                updates each neighbor with .4/number of neighbors
                 if(maze.get(x).get(0).getCell() !=  maze.get(x).get(y).getCell())
                     predatorRandTransMatrix[maze.get(x).get(0).getCell()][maze.get(x).get(y).getCell()] = (0.4/(maze.get(x).size()-1));
                 else
@@ -643,37 +644,29 @@ public class FixedFaultyCombinedPartialInformation {
     }
 
 
-
+    //  updates trans matrix every time agent moves
     public static void updateTransMatrix(Agent agent, ArrayList<ArrayList<Graph.Node>> maze){
         for(int x = 0; x < maze.size(); x++){
-//            if (x == agent.getCell())
-//                continue;
+
             List<Graph.Node> neighbors = maze.get(x).subList(1, maze.get(x).size());
             ArrayList<Integer> distances = new ArrayList<>();
-//            accumaltes all distancesfor current list of neighbors to agent
+//            accumulates all distances for current list of neighbors to agent
             for(int y = 0; y < neighbors.size(); y++){
                 List<Graph.Node> predatorDistance = Predator.bfs(neighbors.get(y).getCell(), agent, maze);
                 distances.add(predatorDistance.size());
             }
 
-//            updates transmatrix with probability of predator/cell moving to next cell towards agent.
+//            updates trans matrix with probability of predator/cell moving to next cell towards agent.
             int minimum = Collections.min(distances);
             int count = countMin(distances, minimum);
-
+//            updates shortest path neighbors
             for(int y = 0; y < 50; y++){
-//                if (y > 0)
-//                    transMatrix[x][y] = .4/(neighbors.size()-1);
                 predatorTransMatrix[y][x] = 0.0;
                 if(neighbors.contains(new Graph.Node(y)) && minimum == distances.get(neighbors.indexOf(new Graph.Node(y)))) {
                     predatorTransMatrix[y][x] = (0.6/ count);
-
                 }
-
             }
-
-
         }
-
     }
 
     //    returns random cell that has the highest likelihood of being prey

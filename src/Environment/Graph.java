@@ -4,15 +4,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Graph {
+//    Used for each cell in graph
     public static class Node{
+//        used during bfs
         public Node prev;
+//        cell number; 0-49
         int cell;
-
-
-
-
-
-
+//        constructors for Node
         public Node(int cell){
             this.cell = cell;
         }
@@ -23,11 +21,13 @@ public class Graph {
         }
 
 
-
+//      returns cell of Node
         public int getCell(){
             return cell;
         }
 
+
+//        Create my own hashfunction and equals function using Apache Commons
         @Override
         public int hashCode() {
             return new HashCodeBuilder(17, 31). // two randomly chosen prime numbers
@@ -45,11 +45,7 @@ public class Graph {
                 return true;
 
             Node rhs = (Node) obj;
-            return new EqualsBuilder().
-                    // if deriving: appendSuper(super.equals(obj)).
-                            append(cell, rhs.cell).
-//                    append(age, rhs.age).
-                    isEquals();
+            return new EqualsBuilder().append(cell, rhs.cell).isEquals();
         }
 
         @Override
@@ -60,7 +56,6 @@ public class Graph {
     }
 
 //  wrapper method which generates a graph that satisfies conditions
-
     public static ArrayList<ArrayList<Node>> buildGraph(){
         return addRandomEdges(buildSkeletonGraph());
     }
@@ -89,6 +84,7 @@ public class Graph {
         return graph;
 
     }
+
 //  checks if the current Node is in the list of neighbors
     static boolean contains(ArrayList<Node> neighbors, Node node){
         for(int x = 0; x < neighbors.size(); x++){
@@ -99,28 +95,31 @@ public class Graph {
         return false;
 
     }
-//  adds random edges
+//  adds random edges to skeleton graph
     static ArrayList<ArrayList<Node>> addRandomEdges(ArrayList<ArrayList<Node>> skeleton){
-//        initializes cells
+//        initializes cells to be added
         ArrayList<Node> full = new ArrayList<>();
         for(ArrayList<Node> arr: skeleton) {
             full.add(arr.get(0));
         }
+
 //        accounts for worst case of max edges
         while(!full.isEmpty()){
+//            initializes variables
             int index = new Random().nextInt(full.size());
-
             Node currNode = full.get(index);
+//            used to insert and calculate wrap around
             int value = currNode.getCell();
             int range = new Random().nextInt(5) + 1;
             int sign = new Random().nextInt(2);
 //            negative if 1 and positive is 0
             sign = sign == 1 ? -1 : 1;
-
+//          Potential new edge to be added
             int newEdge = value + range * sign;
 
             Node newNode = null;
             int count = 0;
+//            checks if newNode has already been added or is within 5 steps
             while(newNode == null){
                 range = new Random().nextInt(5) + 1;
                 sign = new Random().nextInt(2);
@@ -137,7 +136,7 @@ public class Graph {
                     newNode = null;
                     continue;
                 }
-                count += 1;
+                count++;
 //                abritray limit to exhaust all possibilities that no possible edge can be added
                 if (count > 50){
                     return skeleton;

@@ -7,9 +7,9 @@ import Environment.Prey;
 
 import java.util.*;
 
-import static Agents.CompleteInformation.searchPred;
 import static Agents.CompleteInformation.searchPrey;
 
+//Test Agent that ignores predator and greedily goes towards prey
 public class TestAgent {
     public static String test(ArrayList<ArrayList<Graph.Node>> maze){
 //        initializes all player positions
@@ -33,7 +33,7 @@ public class TestAgent {
                 preyDistances.add(x, preyList.size());
 
             }
-//            stores distance of agent to predator/prey in a named variable
+//            stores distance of agent to prey in a named variable
             int agentToPrey = preyDistances.get(0);
             double minD = Double.MAX_VALUE;
             for(int x = 0; x < preyDistances.size(); x++){
@@ -41,24 +41,24 @@ public class TestAgent {
                     minD = preyDistances.get(x);
 
             }
-//            System.out.println(neighbors);
-//            System.out.println(preyDistances);
-//            System.out.println(minD);
 
+//          adds shortest distances to d arraylist
             ArrayList<Integer> d = new ArrayList<>();
             for(int x = 0; x < preyDistances.size(); x++){
                 if (minD == preyDistances.get(x))
                     d.add(x);
 
             }
+//            randomly break ties
             int random = new Random().nextInt(d.size());
             agent.setCell(neighbors.get(d.get(random)).getCell());
-//            System.out.println(agent.getCell());
+
 //            win
             if(agent.getCell() == prey.getCell()){
                 return "true";
             }
-            if(agent.getCell() == predator.getCell()){
+//            dead
+            else if(agent.getCell() == predator.getCell()){
                 return "false";
             }
 //          prey move
@@ -70,7 +70,7 @@ public class TestAgent {
 //            pred move
             ArrayList<Graph.Node> predatorNeighbors = maze.get(predator.getCell());
             ArrayList<Integer> agentDistances = new ArrayList<>();
-
+//          Creates list of distances for predator neighbors
             for(int x = 1; x < predatorNeighbors.size(); x++){
                 List<Graph.Node> agentList = Predator.bfs(predatorNeighbors.get(x).getCell(), agent, maze);
                 agentDistances.add(agentList.size());
