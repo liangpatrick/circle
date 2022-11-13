@@ -1,9 +1,6 @@
 package Agents;
 
-import Environment.Agent;
-import Environment.Graph;
-import Environment.Predator;
-import Environment.Prey;
+import Environment.*;
 
 import java.util.*;
 
@@ -11,7 +8,7 @@ import static Agents.CompleteInformation.searchPrey;
 
 //Test Agent that ignores predator and greedily goes towards prey
 public class TestAgent {
-    public static String test(ArrayList<ArrayList<Graph.Node>> maze){
+    public static Result test(ArrayList<ArrayList<Graph.Node>> maze){
 //        initializes all player positions
         Agent agent = new Agent();
         Prey prey = new Prey(agent);
@@ -23,8 +20,7 @@ public class TestAgent {
         while(true){
 //            hung
             if (count == 5000)
-                return "hung";
-//            creates arraylists of neighbors, predator distances, and prey distances
+                return new Result(false, false, false,false, count);
             ArrayList<Graph.Node> neighbors = maze.get(agent.getCell());
             ArrayList<Integer> preyDistances = new ArrayList<>();
 //            adds distances to predator/prey from all neighbors
@@ -55,17 +51,17 @@ public class TestAgent {
 
 //            win
             if(agent.getCell() == prey.getCell()){
-                return "true";
+                return new Result(false, true, false,false, 0);
             }
 //            dead
             else if(agent.getCell() == predator.getCell()){
-                return "false";
+                return new Result(false, false, true,false, 0);
             }
 //          prey move
             prey.setCell(Prey.choosesNeighbors(prey.getCell(), maze));
 //            win
             if(agent.getCell() == prey.getCell()){
-                return "true";
+                return new Result(false, false, false,true, 0);
             }
 //            pred move
             ArrayList<Graph.Node> predatorNeighbors = maze.get(predator.getCell());
@@ -88,7 +84,7 @@ public class TestAgent {
             predator.setCell(predatorNeighbors.get(indices.get(randInt)+1).getCell());
 //            dead
             if(agent.getCell() == predator.getCell()){
-                return "false";
+                return new Result(true, false, false,false, 0);
             }
 
             count++;

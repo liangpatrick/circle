@@ -13,7 +13,7 @@ public class PartialPredator {
     static double[] belief = new double[50];
     static double[][] transMatrix = new double[50][50];
     static double[][] randTransMatrix = new double[50][50];
-    public static String agentFive(ArrayList<ArrayList<Graph.Node>> maze){
+    public static Result agentFive(ArrayList<ArrayList<Graph.Node>> maze){
 //        initializes all player positions
         Agent agent = new Agent();
         Prey prey = new Prey(agent);
@@ -21,12 +21,12 @@ public class PartialPredator {
         initialBelief(predator.getCell());
         initRandTransMatrix(maze);
         int count = 0;
+        double surveyRate = 0;
 //        will return only when Agent dies or succeeds
         while(true){
 //            hung
             if (count == 5000)
-                return "hung";
-
+                return new Result(false, false, false,false, surveyRate/(double)count, count);
 //            creates arraylists of neighbors, predator distances, and prey distances
             ArrayList<Graph.Node> neighbors = maze.get(agent.getCell());
             ArrayList<Integer> predatorDistances = new ArrayList<>();
@@ -36,6 +36,7 @@ public class PartialPredator {
 
 
             if(predator.getCell() == surveyedNode){
+                surveyRate++;
                 bayes(true, predator.getCell(), agent);
             } else {
                 bayes(false, surveyedNode, agent);
@@ -99,11 +100,11 @@ public class PartialPredator {
 
 //            win
             if(agent.getCell() == prey.getCell()){
-                return "true";
+                return new Result(false, true, false,false, surveyRate/((double)count+1), 0);
             }
 //            dead
             else if(agent.getCell() == predator.getCell())
-                return "false";
+                return new Result(false, false, true,false, surveyRate/((double)count+1), 0);
 //          belief update
             bayes(false,  agent.getCell(), agent);
             belief  = normalize(belief);
@@ -113,7 +114,7 @@ public class PartialPredator {
             prey.setCell(Prey.choosesNeighbors(prey.getCell(), maze));
 //            win
             if(agent.getCell() == prey.getCell()){
-                return "true";
+                return new Result(false, false, false,true, surveyRate/((double)count+1), 0);
             }
 
 //            pred move
@@ -146,7 +147,7 @@ public class PartialPredator {
             }
 //            dead
             if(agent.getCell() == predator.getCell()){
-                return "false";
+                return new Result(true, false, false,false, surveyRate/((double)count+1), 0);
             }
 //            belief distribution
             updateTransMatrix(agent, maze);
@@ -174,7 +175,7 @@ public class PartialPredator {
     }
 
 
-    public static String agentSix(ArrayList<ArrayList<Graph.Node>> maze){
+    public static Result agentSix(ArrayList<ArrayList<Graph.Node>> maze){
 //        initializes all player positions
         Agent agent = new Agent();
         Prey prey = new Prey(agent);
@@ -183,18 +184,19 @@ public class PartialPredator {
         initRandTransMatrix(maze);
 //        for
         int count = 0;
+        double surveyRate = 0;
 //        will return only when Agent dies or succeeds
         while(true){
 //            hung
             if (count == 5000)
-                return "hung";
-
+                return new Result(false, false, false,false, surveyRate/(double)count, count);
 //            creates arraylists of neighbors
             ArrayList<Graph.Node> neighbors = maze.get(agent.getCell());
 
 //            random survey
             int surveyedNode = randomSurvey(agent, maze);
             if(predator.getCell() == surveyedNode){
+                surveyRate++;
                 bayes(true, predator.getCell(), agent);
             } else {
                 bayes(false, surveyedNode, agent);
@@ -209,11 +211,11 @@ public class PartialPredator {
 
 //            win
             if(agent.getCell() == prey.getCell()){
-                return "true";
+                return new Result(false, true, false,false, surveyRate/((double)count+1), 0);
             }
 //            dead
             else if(agent.getCell() == predator.getCell())
-                return "false";
+                return new Result(false, false, true,false, surveyRate/((double)count+1), 0);
             bayes(false,  agent.getCell(), agent);
 //            updates belief
             belief = normalize(belief);
@@ -222,7 +224,7 @@ public class PartialPredator {
             prey.setCell(Prey.choosesNeighbors(prey.getCell(), maze));
 //            win
             if(agent.getCell() == prey.getCell()){
-                return "true";
+                return new Result(false, false, false,true, surveyRate/((double)count+1), 0);
             }
 
 
@@ -253,7 +255,7 @@ public class PartialPredator {
                 predator.setCell(Predator.choosesNeighbors(predator.getCell(), maze));
 //            dead
             if(agent.getCell() == predator.getCell()){
-                return "false";
+                return new Result(true, false, false,false, surveyRate/((double)count+1), 0);
             }
 //          belief distribution
             updateTransMatrix(agent, maze);

@@ -5,483 +5,299 @@ import java.util.*;
 
 public class Main {
 
-//    Runs all agents
-    public static void runOne(){
-        int success = 0;
-        int hung = 0;
-        double fail = 0;
-        long total = System.nanoTime();
-        for(int graphs = 1; graphs <= 100; graphs++) {
-            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-            for (int runs = 1; runs <= 30; runs++) {
-                String result = CompleteInformation.agentOne(maze);
-                if (result.equals("true"))
-                    success++;
-                else if (result.equals("hung"))
-                    hung++;
-                else
-                    fail++;
-            }
-        }
-        long endTime = System.nanoTime();
-        long duration = (endTime - total)/(long)Math.pow(10,9);
-        System.out.println(duration);
-        System.out.println(hung);
-        System.out.println("Hung out of Loss: " + hung/(fail+hung));
-        System.out.println("A1: " + success/3000.0);
-    }
-    public static void runTwo(){
-        double aveSuccess = 0;
-        int hung = 0;
-        double fail = 0;
-        long total = System.nanoTime();
-        for(int graphs = 1; graphs <= 100; graphs++) {
-            int success = 0;
-            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-            for (int runs = 1; runs <= 30; runs++) {
-                String result = CompleteInformation.agentTwo(maze);
-                if (result.equals("true"))
-                    success++;
-                else if (result.equals("hung"))
-                    hung++;
-                else
-                    fail++;
-            }
-            aveSuccess += success;
-        }
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - total)/(long)Math.pow(10,9);
-        System.out.println(duration);
-        System.out.println(hung);
-        System.out.println("Hung out of Loss: " + hung/(fail+hung));
-        System.out.println("A2: " + (aveSuccess)/3000.0);
-    }
-    public static void runThree(){
-        double aveSuccess = 0;
-        int hung = 0;
-        double fail = 0;
-        long total = System.nanoTime();
-        for(int graphs = 1; graphs <= 100; graphs++) {
-            int success = 0;
-            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-            for (int runs = 1; runs <= 30; runs++) {
-                String result = PartialPrey.agentThree(maze);
-                if (result.equals("true"))
-                    success++;
-                else if (result.equals("hung"))
-                    hung++;
-                else
-                    fail++;
-            }
-            aveSuccess += success;
-        }
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - total)/(long)Math.pow(10,9);
-        System.out.println(duration);
-        System.out.println(hung);
-        System.out.println("Hung out of Loss: " + hung/(fail+hung));
-        System.out.println("A3: " + (aveSuccess)/3000.0);
-//        System.out.println();
-    }
-    public static void runFour(){
-        double aveSuccess = 0;
-        int hung = 0;
-        double fail = 0;
-        long total = System.nanoTime();
-        for(int graphs = 1; graphs <= 100; graphs++) {
-            int success = 0;
-            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-            for (int runs = 1; runs <= 30; runs++) {
-                String result = PartialPrey.agentFour(maze);
-                if (result.equals("true"))
-                    success++;
-                else if (result.equals("hung"))
-                    hung++;
-                else
-                    fail++;
-            }
-            aveSuccess += success;
-        }
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - total)/(long)Math.pow(10,9);
-        System.out.println(duration);
-        System.out.println(hung);
-        System.out.println("Hung out of Loss: " + hung/(fail+hung));
-        System.out.println("A4: " + (aveSuccess)/3000.0);
-//        System.out.println();
-    }
-    public static void runFive(){
-        double aveSuccess = 0;
-        int hung = 0;
-        double fail = 0;
-        long total = System.nanoTime();
-        for(int graphs = 1; graphs <= 100; graphs++) {
-            int success = 0;
-            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-            for (int runs = 1; runs <= 30; runs++) {
-                String result = PartialPredator.agentFive(maze);
-                if (result.equals("true"))
-                    success++;
-                else if (result.equals("hung"))
-                    hung++;
-                else
-                    fail++;
-            }
-            aveSuccess += success;
-        }
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - total)/(long)Math.pow(10,9);
-        System.out.println(duration);
-        System.out.println(hung);
-        System.out.println("Hung out of Loss: " + hung/(fail+hung));
-        System.out.println("A5: " + (aveSuccess)/3000.0);
-//        System.out.println();
-    }
-    public static void runSix(){
-        double aveSuccess = 0;
-        int hung = 0;
-        double fail = 0;
-        long total = System.nanoTime();
-        for(int graphs = 1; graphs <= 100; graphs++) {
-            int success = 0;
-            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-            for (int runs = 1; runs <= 30; runs++) {
-                String result = PartialPredator.agentSix(maze);
-                if (result.equals("true"))
-                    success++;
-                else if (result.equals("hung"))
-                    hung++;
-                else
-                    fail++;
-            }
-            aveSuccess += success;
-        }
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - total)/(long)Math.pow(10,9);
-        System.out.println(duration);
-        System.out.println(hung);
-        System.out.println("Hung out of Loss: " + hung/(fail+hung));
-        System.out.println("A6: " + (aveSuccess)/3000.0);
-//        System.out.println();
-    }
-    public static void runSeven(){
-        double aveSuccess = 0;
-        int hung = 0;
-        double fail = 0;
-        long total = System.nanoTime();
-        int averageStep = 0;
-        for(int graphs = 1; graphs <= 100; graphs++) {
-            int success = 0;
-            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-            for (int runs = 1; runs <= 30; runs++) {
-                String result = CombinedPartialInformation.agentSeven(maze);
-                if (result.contains("true")) {
-                    success++;
-                    averageStep += Integer.parseInt(result.substring(5));
-//                    System.out.println(averageStep);
-                }
-                else if (result.contains("hung"))
-                    hung++;
-                else
-                    fail++;
-            }
-            aveSuccess += success;
-        }
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - total)/(long)Math.pow(10,9);
-        System.out.println(duration);
-        System.out.println(hung);
-//        System.out.println(averageStep);
-//        System.out.println("Average step: " + averageStep/aveSuccess);
-        System.out.println("Hung out of Loss: " + hung/(fail+hung));
-        System.out.println("A7: " + (aveSuccess)/3000.0);
-    }
-    public static void runSevenFaulty(){
-        double aveSuccess = 0;
-        int hung = 0;
-        double fail = 0;
-        long total = System.nanoTime();
-        int averageStep = 0;
-        for(int graphs = 1; graphs <= 100; graphs++) {
-            int success = 0;
-            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-            for (int runs = 1; runs <= 30; runs++) {
-                String result = FaultyCombinedPartialInformation.agentSevenFaulty(maze);
-                if (result.contains("true")) {
-                    success++;
-                    averageStep += Integer.parseInt(result.substring(5));
-//                    System.out.println(averageStep);
-                }
-                else if (result.contains("hung"))
-                    hung++;
-                else
-                    fail++;
-            }
-            aveSuccess += success;
-        }
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - total)/(long)Math.pow(10,9);
-        System.out.println(duration);
-        System.out.println(hung);
-//        System.out.println(averageStep);
-//        System.out.println("Average step: " + averageStep/aveSuccess);
-        System.out.println("Hung out of Loss: " + hung/(fail+hung));
-        System.out.println("A7 Faulty: " + (aveSuccess)/3000.0);
-    }
-    public static void runSevenFaultyFixed(){
-        double aveSuccess = 0;
-        int hung = 0;
-        double fail = 0;
-        long total = System.nanoTime();
-        int averageStep = 0;
-        for(int graphs = 1; graphs <= 100; graphs++) {
-            int success = 0;
-            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-            for (int runs = 1; runs <= 30; runs++) {
-                String result = FixedFaultyCombinedPartialInformation.agentSevenFaultyFixed(maze);
-                if (result.contains("true")) {
-                    success++;
-                    averageStep += Integer.parseInt(result.substring(5));
-//                    System.out.println(averageStep);
-                }
-                else if (result.contains("hung"))
-                    hung++;
-                else
-                    fail++;
-            }
-            aveSuccess += success;
-        }
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - total)/(long)Math.pow(10,9);
-        System.out.println(duration);
-        System.out.println(hung);
-//        System.out.println(averageStep);
-//        System.out.println("Average step: " + averageStep/aveSuccess);
-        System.out.println("Hung out of Loss: " + hung/(fail+hung));
-        System.out.println("A7 Faulty Fixed: " + (aveSuccess)/3000.0);
-    }
-    public static void runEight(){
-        double aveSuccess = 0;
-        int hung = 0;
-        double fail = 0;
-        long total = System.nanoTime();
-        for(int graphs = 1; graphs <= 100; graphs++) {
-            int success = 0;
-            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-            for (int runs = 1; runs <= 30; runs++) {
-                String result = CombinedPartialInformation.agentEight(maze);
-                if (result.equals("true"))
-                    success++;
-                else if (result.equals("hung"))
-                    hung++;
-                else
-                    fail++;
-            }
-            aveSuccess += success;
-        }
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - total)/(long)Math.pow(10,9);
-        System.out.println(duration);
-        System.out.println(hung);
-        System.out.println("Hung out of Loss: " + hung/(fail+hung));
-        System.out.println("A8: " + (aveSuccess)/3000.0);
-    }
-    public static void runEightFaulty(){
-        double aveSuccess = 0;
-        int hung = 0;
-        double fail = 0;
-        long total = System.nanoTime();
-        for(int graphs = 1; graphs <= 100; graphs++) {
-            int success = 0;
-            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-            for (int runs = 1; runs <= 30; runs++) {
-                String result = FaultyCombinedPartialInformation.agentEightFaulty(maze);
-                if (result.equals("true"))
-                    success++;
-                else if (result.equals("hung"))
-                    hung++;
-                else
-                    fail++;
-            }
-            aveSuccess += success;
-        }
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - total)/(long)Math.pow(10,9);
-        System.out.println(duration);
-        System.out.println(hung);
-        System.out.println("Hung out of Loss: " + hung/(fail+hung));
-        System.out.println("A8 Faulty: " + (aveSuccess)/3000.0);
-    }
-    public static void runEightFaultyFixed(){
-        double aveSuccess = 0;
-        int hung = 0;
-        double fail = 0;
-        long total = System.nanoTime();
-        for(int graphs = 1; graphs <= 100; graphs++) {
-            int success = 0;
-            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-            for (int runs = 1; runs <= 30; runs++) {
-                String result = FixedFaultyCombinedPartialInformation.agentEightFaultyFixed(maze);
-                if (result.equals("true"))
-                    success++;
-                else if (result.equals("hung"))
-                    hung++;
-                else
-                    fail++;
-            }
-            aveSuccess += success;
-        }
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - total)/(long)Math.pow(10,9);
-        System.out.println(duration);
-        System.out.println(hung);
-        System.out.println("Hung out of Loss: " + hung/(fail+hung));
-        System.out.println("A8 Faulty Fixed: " + (aveSuccess)/3000.0);
-    }
-    public static void runTest(){
-        double aveSuccess = 0;
-        int hung = 0;
-        double fail = 0;
-        long total = System.nanoTime();
-        for(int graphs = 1; graphs <= 100; graphs++) {
-            int success = 0;
-            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-            for (int runs = 1; runs <= 30; runs++) {
-                String result = TestAgent.test(maze);
-                if (result.equals("true"))
-                    success++;
-                else if (result.equals("hung"))
-                    hung++;
-                else
-                    fail++;
-            }
-            aveSuccess += success;
-        }
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - total)/(long)Math.pow(10,9);
-        System.out.println(duration);
-        System.out.println(hung);
-        System.out.println("Hung out of Loss: " + hung/(fail+hung));
-        System.out.println("Test: " + (aveSuccess)/3000.0);
-    }
-
     public static void runAll(){
-        int[] success = new int[13];
-        int[] hung    = new int[13];
-        int[] fail    = new int[13];
+        int[] agentSuccess       = new int[13];
+        int[] hung               = new int[13];
+        int[] predatorSuccess    = new int[13];
+        int[] agentFail          = new int[13];
+        int[] preyDeath          = new int[13];
+        double[] preySurveyRate  = new double[13];
+        double[] predatorSurveyRate  = new double[13];
 
         long total = System.nanoTime();
 
         for(int graphs = 1; graphs <= 100; graphs++){
             ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
             for(int runs = 1; runs <= 30; runs++) {
-                String result = CompleteInformation.agentOne(maze);
-                if (result.equals("true"))
-                    success[1]++;
-                else if (result.equals("hung"))
+                Result resultOne = CompleteInformation.agentOne(maze);
+                if (resultOne.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[1]++;
+                }
+                else if (resultOne.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[1]++;
+                }
+                else if (resultOne.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[1]++;
+                }
+                else if (resultOne.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[1]++;
+                }
+                else if (resultOne.hung > 0) {
+//                    hung
                     hung[1]++;
-                else
-                    fail[1]++;
+                }
 
-                result = CompleteInformation.agentTwo(maze);
-                if (result.equals("true"))
-                    success[2]++;
-                else if (result.equals("hung"))
+                Result resultTwo = CompleteInformation.agentTwo(maze);
+                if (resultTwo.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[2]++;
+                }
+                else if (resultTwo.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[2]++;
+                }
+                else if (resultTwo.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[2]++;
+                }
+                else if (resultTwo.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[2]++;
+                }
+                else if (resultTwo.hung > 0) {
+//                    hung
                     hung[2]++;
-                else
-                    fail[2]++;
+                }
 
-                result = PartialPrey.agentThree(maze);
-                if (result.equals("true"))
-                    success[3]++;
-                else if (result.equals("hung"))
+                Result resultThree = PartialPrey.agentThree(maze);
+                if (resultThree.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[3]++;
+                }
+                else if (resultThree.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[3]++;
+                }
+                else if (resultThree.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[3]++;
+                }
+                else if (resultThree.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[3]++;
+                }
+                else if (resultThree.hung > 0) {
+//                    hung
                     hung[3]++;
-                else
-                    fail[3]++;
+                }
+                preySurveyRate[3] += resultThree.surveyRate;
 
-                result = PartialPrey.agentFour(maze);
-                if (result.equals("true"))
-                    success[4]++;
-                else if (result.equals("hung"))
+                Result resultFour = PartialPrey.agentFour(maze);
+                if (resultFour.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[4]++;
+                }
+                else if (resultFour.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[4]++;
+                }
+                else if (resultFour.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[4]++;
+                }
+                else if (resultFour.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[4]++;
+                }
+                else if (resultFour.hung > 0) {
+//                    hung
                     hung[4]++;
-                else
-                    fail[4]++;
+                }
+                preySurveyRate[4] += resultFour.surveyRate;
 
-                result = PartialPredator.agentFive(maze);
-                if (result.equals("true"))
-                    success[5]++;
-                else if (result.equals("hung"))
+                Result resultFive = PartialPredator.agentFive(maze);
+                if (resultFive.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[5]++;
+                }
+                else if (resultFive.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[5]++;
+                }
+                else if (resultFive.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[5]++;
+                }
+                else if (resultFive.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[5]++;
+                }
+                else if (resultFive.hung > 0) {
+//                    hung
                     hung[5]++;
-                else
-                    fail[5]++;
+                }
+                predatorSurveyRate[5] += resultFive.surveyRate;
 
-                result = PartialPredator.agentSix(maze);
-                if (result.equals("true"))
-                    success[6]++;
-                else if (result.equals("hung"))
+                Result resultSix = PartialPredator.agentSix(maze);
+                if (resultSix.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[6]++;
+                }
+                else if (resultSix.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[6]++;
+                }
+                else if (resultSix.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[6]++;
+                }
+                else if (resultSix.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[6]++;
+                }
+                else if (resultSix.hung > 0) {
+//                    hung
                     hung[6]++;
-                else
-                    fail[6]++;
+                }
+                predatorSurveyRate[6] += resultSix.surveyRate;
 
-                result = CombinedPartialInformation.agentSeven(maze);
-                if (result.contains("true"))
-                    success[7]++;
-                else if (result.equals("hung"))
+                Result resultSeven = CombinedPartialInformation.agentSeven(maze);
+                if (resultSeven.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[7]++;
+                }
+                else if (resultSeven.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[7]++;
+                }
+                else if (resultSeven.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[7]++;
+                }
+                else if (resultSeven.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[7]++;
+                }
+                else if (resultSeven.hung > 0) {
+//                    hung
                     hung[7]++;
-                else
-                    fail[7]++;
+                }
+                predatorSurveyRate[7] += resultSeven.predatorSurveyRate;
+                preySurveyRate[7] += resultSeven.preySurveyRate;
 
-                result = CombinedPartialInformation.agentEight(maze);
-                if (result.equals("true"))
-                    success[8]++;
-                else if (result.equals("hung"))
+                Result resultEight = CombinedPartialInformation.agentEight(maze);
+                if (resultEight.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[8]++;
+                }
+                else if (resultEight.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[8]++;
+                }
+                else if (resultEight.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[8]++;
+                }
+                else if (resultEight.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[8]++;
+                }
+                else if (resultEight.hung > 0) {
+//                    hung
                     hung[8]++;
-                else
-                    fail[8]++;
+                }
+                predatorSurveyRate[8] += resultEight.predatorSurveyRate;
+                preySurveyRate[8] += resultEight.preySurveyRate;
 
-                result = FaultyCombinedPartialInformation.agentSevenFaulty(maze);
-                if (result.contains("true"))
-                    success[9]++;
-                else if (result.equals("hung"))
+                Result resultSevenFaulty = FaultyCombinedPartialInformation.agentSevenFaulty(maze);
+                if (resultSevenFaulty.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[9]++;
+                }
+                else if (resultSevenFaulty.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[9]++;
+                }
+                else if (resultSevenFaulty.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[9]++;
+                }
+                else if (resultSevenFaulty.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[9]++;
+                }
+                else if (resultSevenFaulty.hung > 0) {
+//                    hung
                     hung[9]++;
-                else
-                    fail[9]++;
+                }
+                predatorSurveyRate[9] += resultSevenFaulty.predatorSurveyRate;
+                preySurveyRate[9] += resultSevenFaulty.preySurveyRate;
 
-                result = FaultyCombinedPartialInformation.agentEightFaulty(maze);
-                if (result.equals("true"))
-                    success[10]++;
-                else if (result.equals("hung"))
+                Result resultEightFaulty = FaultyCombinedPartialInformation.agentEightFaulty(maze);
+                if (resultEightFaulty.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[10]++;
+                }
+                else if (resultEightFaulty.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[10]++;
+                }
+                else if (resultEightFaulty.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[10]++;
+                }
+                else if (resultEightFaulty.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[10]++;
+                }
+                else if (resultEightFaulty.hung > 0) {
+//                    hung
                     hung[10]++;
-                else
-                    fail[10]++;
+                }
+                predatorSurveyRate[10] += resultEightFaulty.predatorSurveyRate;
+                preySurveyRate[10] += resultEightFaulty.preySurveyRate;
 
-                result = FixedFaultyCombinedPartialInformation.agentSevenFaultyFixed(maze);
-                if (result.contains("true"))
-                    success[11]++;
-                else if (result.equals("hung"))
+                Result resultSevenFaultyFixed = FixedFaultyCombinedPartialInformation.agentSevenFaultyFixed(maze);
+                if (resultSevenFaultyFixed.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[11]++;
+                }
+                else if (resultSevenFaultyFixed.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[11]++;
+                }
+                else if (resultSevenFaultyFixed.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[11]++;
+                }
+                else if (resultSevenFaultyFixed.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[11]++;
+                }
+                else if (resultSevenFaultyFixed.hung > 0) {
+//                    hung
                     hung[11]++;
-                else
-                    fail[11]++;
+                }
+                predatorSurveyRate[11] += resultSevenFaultyFixed.predatorSurveyRate;
+                preySurveyRate[11] += resultSevenFaultyFixed.preySurveyRate;
 
-                result = FixedFaultyCombinedPartialInformation.agentEightFaultyFixed(maze);
-                if (result.equals("true"))
-                    success[12]++;
-                else if (result.equals("hung"))
+                Result resultEightFaultyFixed = FixedFaultyCombinedPartialInformation.agentEightFaultyFixed(maze);
+                if (resultEightFaultyFixed.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[12]++;
+                }
+                else if (resultEightFaultyFixed.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[12]++;
+                }
+                else if (resultEightFaultyFixed.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[12]++;
+                }
+                else if (resultEightFaultyFixed.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[12]++;
+                }
+                else if (resultEightFaultyFixed.hung > 0) {
+//                    hung
                     hung[12]++;
-                else
-                    fail[12]++;
+                }
+                predatorSurveyRate[12] += resultEightFaultyFixed.predatorSurveyRate;
+                preySurveyRate[12] += resultEightFaultyFixed.preySurveyRate;
 
             }
             long endTime = System.nanoTime();
@@ -492,25 +308,30 @@ public class Main {
         long endTime = System.nanoTime();
         long duration = (endTime - total)/(long)Math.pow(10,9);
         System.out.println(duration);
-        for(int x = 1; x < success.length; x++){
-            System.out.println(hung[x]);
-            System.out.println("Hung out of Loss: " + (double)hung[x]/((double)fail[x]+hung[x]));
+        for(int x = 1; x < agentSuccess.length; x++){
+
             if(x < 9) {
-                System.out.println("A" + x + ": " + (success[x]) / 3000.0);
+                System.out.println("A" + x + ": " + (agentSuccess[x] + preyDeath[x])/3000.0);
             }
             else if(x == 9){
-                System.out.println("A7 Faulty: " + (success[x])/3000.0);
+                System.out.println("A7 Faulty: " + (agentSuccess[x] + preyDeath[x])/3000.0);
             }
             else if(x == 10){
-                System.out.println("A8 Faulty: " + (success[x])/3000.0);
+                System.out.println("A8 Faulty: " + (agentSuccess[x] + preyDeath[x])/3000.0);
             }
             else if(x == 11){
-                System.out.println("A7 Faulty Fixed: " + (success[x])/3000.0);
+                System.out.println("A7 Faulty Fixed: " + (agentSuccess[x] + preyDeath[x])/3000.0);
             }
             else if(x == 12){
-                System.out.println("A8 Faulty Fixed: " + (success[x])/3000.0);
-
+                System.out.println("A8 Faulty Fixed: " + (agentSuccess[x] + preyDeath[x])/3000.0);
             }
+            System.out.println("Predator Catches Agent: " + predatorSuccess[x]);
+            System.out.println("Agent Catches Prey: " + agentSuccess[x]);
+            System.out.println("Average Predator Survey Rate: " + predatorSurveyRate[x] / 3000.0);
+            System.out.println("Average Prey Survey Rate: " + preySurveyRate[x] / 3000.0);
+            System.out.println("Hung out of Loss: " + (double)hung[x]/((double)predatorSuccess[x] + agentFail[x]+hung[x]));
+            System.out.println("Predator Catches Agent: " + predatorSuccess[x]);
+            System.out.println();
         }
 
 
@@ -519,21 +340,7 @@ public class Main {
 
 
     public static void main (String args[]) {
-//        ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-//        runOne();
-//        runTwo();
-//        runThree();
-//        runFour();
-//        runFive();
-//        runSix();
-//        runSeven();
-//        runEight();
-//        runSevenFaulty();
-//        runEightFaulty();
-//        runSevenFaultyFixed();
-//        runEightFaultyFixed();
 
-//        runTest();
         runAll();
 
 

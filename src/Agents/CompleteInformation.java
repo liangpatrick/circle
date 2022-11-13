@@ -14,7 +14,7 @@ import static Environment.Predator.getPath;
 
 
 public class CompleteInformation {
-    public static String agentOne(ArrayList<ArrayList<Graph.Node>> maze){
+    public static Result agentOne(ArrayList<ArrayList<Graph.Node>> maze){
 //        initializes all player positions
         Agent agent = new Agent();
         Prey prey = new Prey(agent);
@@ -26,7 +26,7 @@ public class CompleteInformation {
         while(true){
 //            hung
             if (count == 5000)
-                return "hung";
+                return new Result(false, false, false,false, count);
 //            creates arraylists of neighbors, predator distances, and prey distances
             ArrayList<Graph.Node> neighbors = maze.get(agent.getCell());
             ArrayList<Integer> predatorDistances = new ArrayList<>();
@@ -84,16 +84,16 @@ public class CompleteInformation {
             agent.setCell(random.get(rand));
 //            win
             if(agent.getCell() == prey.getCell()){
-                return "true";
+                return new Result(false, true, false,false, 0);
             }
             else if(agent.getCell() == predator.getCell()){
-                return "false";
+                return new Result(false, false, true,false, 0);
             }
 //          prey move
             prey.setCell(Prey.choosesNeighbors(prey.getCell(), maze));
 //            win
             if(agent.getCell() == prey.getCell()){
-                return "true";
+                return new Result(false, false, false,true, 0);
             }
 //            pred move
             ArrayList<Graph.Node> predatorNeighbors = maze.get(predator.getCell());
@@ -116,7 +116,7 @@ public class CompleteInformation {
             predator.setCell(predatorNeighbors.get(indices.get(randInt)+1).getCell());
 //            dead
             if(agent.getCell() == predator.getCell()){
-                return "false";
+                return new Result(true, false, false,false, 0);
             }
 
             count++;
@@ -126,20 +126,19 @@ public class CompleteInformation {
 
 
 
-    public static String agentTwo(ArrayList<ArrayList<Graph.Node>> maze) {
+    public static Result agentTwo(ArrayList<ArrayList<Graph.Node>> maze) {
 //        initializes all player positions
         Agent agent = new Agent();
         Prey prey = new Prey(agent);
         Predator predator = new Predator(agent);
 
-        int counter = 0;
+        int count = 0;
 
 //        will return only when Agent dies or succeeds
         while(true){
 //            hung
-            if (counter == 150)
-                return "hung";
-//            creates arraylists of neighbors, predator distances, and prey distances
+            if (count == 5000)
+                return new Result(false, false, false,false, count);
             ArrayList<Graph.Node> neighbors = maze.get(agent.getCell());
             ArrayList<Graph.Node> preyNeighbors = maze.get(prey.getCell());
 
@@ -148,14 +147,14 @@ public class CompleteInformation {
             agent.setCell(cell);
 //            win
             if(agent.getCell() == prey.getCell()){
-                return "true";
+                return new Result(false, true, false,false, 0);
             } else if(agent.getCell() == predator.getCell())
-                return "false";
+                return new Result(false, false, true,false, 0);
 //          prey move
             prey.setCell(Prey.choosesNeighbors(prey.getCell(), maze));
 //            win
             if(agent.getCell() == prey.getCell()){
-                return "true";
+                return new Result(false, false, false,true, 0);
             }
 //            pred move
             ArrayList<Graph.Node> predatorNeighbors = maze.get(predator.getCell());
@@ -177,10 +176,10 @@ public class CompleteInformation {
             predator.setCell(predatorNeighbors.get(indices.get(randInt)+1).getCell());
 //            dead
             if(agent.getCell() == predator.getCell()){
-                return "false";
+                return new Result(true, false, false,false, 0);
             }
 
-            counter++;
+            count++;
 
         }
 
