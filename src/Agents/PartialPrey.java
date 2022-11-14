@@ -46,7 +46,7 @@ public class PartialPrey {
 //            adds distances to predator/prey from all neighbors
             for(int x = 0; x < neighbors.size(); x++){
                 List<Graph.Node> predatorList = searchPred(neighbors.get(x).getCell(), predator.getCell(), maze);
-                List<Graph.Node> preyList = searchPrey(neighbors.get(x).getCell(), maxIndex(maxBelief()), maze);
+                List<Graph.Node> preyList = searchPrey(neighbors.get(x).getCell(), preyCell, maze);
                 predatorDistances.add(x, predatorList.size());
                 preyDistances.add(x, preyList.size());
 
@@ -385,7 +385,7 @@ public class PartialPrey {
     public static double dotProduct(int row, double[] temp) {
         double sum = 0;
         for (int x = 0; x < 50; x++) {
-            sum += transMatrix[x][row] * temp[x];
+            sum += transMatrix[row][x] * temp[x];
 
         }
 
