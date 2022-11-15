@@ -43,17 +43,17 @@ public class CombinedPartialInformation {
                 int surveyedNode = predatorRandomSurvey(agent, maze);
                 if (predator.getCell() == surveyedNode) {
                     predatorSurveyRate++;
-                    predatorBayes(true, predator.getCell());
+                    predatorupdateProbability(true, predator.getCell());
                 } else {
-                    predatorBayes(false, surveyedNode);
+                    predatorupdateProbability(false, surveyedNode);
                     predatorBelief = predatorNormalize(predatorBelief);
                 }
 
                 if(prey.getCell() == surveyedNode){
                     preySurveyRate++;
-                    preyBayes(true, prey.getCell());
+                    preyupdateProbability(true, prey.getCell());
                 } else {
-                    preyBayes(false, surveyedNode);
+                    preyupdateProbability(false, surveyedNode);
                     preyNormalize();
                 }
 
@@ -61,17 +61,17 @@ public class CombinedPartialInformation {
                 int surveyedNode = preyRandomSurvey();
                 if(prey.getCell() == surveyedNode){
                     preySurveyRate++;
-                    preyBayes(true, prey.getCell());
+                    preyupdateProbability(true, prey.getCell());
                 } else {
-                    preyBayes(false, surveyedNode);
+                    preyupdateProbability(false, surveyedNode);
                     preyNormalize();
                 }
 
                 if (predator.getCell() == surveyedNode) {
                     predatorSurveyRate++;
-                    predatorBayes(true, predator.getCell());
+                    predatorupdateProbability(true, predator.getCell());
                 } else {
-                    predatorBayes(false, surveyedNode);
+                    predatorupdateProbability(false, surveyedNode);
                     predatorBelief = predatorNormalize(predatorBelief);
                 }
             }
@@ -139,9 +139,9 @@ public class CombinedPartialInformation {
                 return new Result(false, false, true, false,preySurveyRate/((double)count + 1), predatorSurveyRate/((double)count + 1), 0);
             }
 
-            predatorBayes(false,  agent.getCell());
+            predatorupdateProbability(false,  agent.getCell());
             predatorBelief = predatorNormalize(predatorBelief);
-            preyBayes(false,  agent.getCell());
+            preyupdateProbability(false,  agent.getCell());
             preyNormalize();
 
 //          prey move
@@ -244,17 +244,17 @@ public class CombinedPartialInformation {
                 int surveyedNode = predatorRandomSurvey(agent, maze);
                 if (predator.getCell() == surveyedNode) {
                     predatorSurveyRate++;
-                    predatorBayes(true, predator.getCell());
+                    predatorupdateProbability(true, predator.getCell());
                 } else {
-                    predatorBayes(false, surveyedNode);
+                    predatorupdateProbability(false, surveyedNode);
                     predatorBelief = predatorNormalize(predatorBelief);
                 }
 
                 if(prey.getCell() == surveyedNode){
                     preySurveyRate++;
-                    preyBayes(true, prey.getCell());
+                    preyupdateProbability(true, prey.getCell());
                 } else {
-                    preyBayes(false, surveyedNode);
+                    preyupdateProbability(false, surveyedNode);
                     preyNormalize();
                 }
 
@@ -262,17 +262,17 @@ public class CombinedPartialInformation {
                 int surveyedNode = preyRandomSurvey();
                 if(prey.getCell() == surveyedNode){
                     preySurveyRate++;
-                    preyBayes(true, prey.getCell());
+                    preyupdateProbability(true, prey.getCell());
                 } else {
-                    preyBayes(false, surveyedNode);
+                    preyupdateProbability(false, surveyedNode);
                     preyNormalize();
                 }
 
                 if (predator.getCell() == surveyedNode) {
                     predatorSurveyRate++;
-                    predatorBayes(true, predator.getCell());
+                    predatorupdateProbability(true, predator.getCell());
                 } else {
-                    predatorBayes(false, surveyedNode);
+                    predatorupdateProbability(false, surveyedNode);
                     predatorBelief = predatorNormalize(predatorBelief);
                 }
             }
@@ -292,8 +292,8 @@ public class CombinedPartialInformation {
             else if(agent.getCell() == predator.getCell()){
                 return new Result(false, false, true, false,preySurveyRate/((double)count + 1), predatorSurveyRate/((double)count + 1), count);
             }
-            predatorBayes(false,  agent.getCell());
-            preyBayes(false,  agent.getCell());
+            predatorupdateProbability(false,  agent.getCell());
+            preyupdateProbability(false,  agent.getCell());
             predatorBelief = predatorNormalize(predatorBelief);
             preyNormalize();
 
@@ -408,7 +408,7 @@ public class CombinedPartialInformation {
 
     //    PREY METHODS
     //    updates belief when new node is surveyed
-    public static void preyBayes(boolean found, int cell){
+    public static void preyupdateProbability(boolean found, int cell){
 //        if node surveyed contains prey
         if (found){
             for (int x = 0; x < preyBelief.length; x++) {
@@ -526,7 +526,7 @@ public class CombinedPartialInformation {
 
 
     //    updates belief when new node is surveyed;
-    public static void predatorBayes(boolean found, int cell){
+    public static void predatorupdateProbability(boolean found, int cell){
 //        if node surveyed contains prey
         if (found){
 //            System.out.println("here");

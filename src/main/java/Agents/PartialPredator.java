@@ -37,9 +37,9 @@ public class PartialPredator {
 
             if(predator.getCell() == surveyedNode){
                 surveyRate++;
-                bayes(true, predator.getCell());
+                updateProbability(true, predator.getCell());
             } else {
-                bayes(false, surveyedNode);
+                updateProbability(false, surveyedNode);
             }
 //            belief updates
             belief = normalize(belief);
@@ -106,7 +106,7 @@ public class PartialPredator {
             else if(agent.getCell() == predator.getCell())
                 return new Result(false, false, true,false, surveyRate/((double)count+1), 0);
 //          belief update
-            bayes(false,  agent.getCell());
+            updateProbability(false,  agent.getCell());
             belief  = normalize(belief);
 
 
@@ -201,9 +201,9 @@ public class PartialPredator {
             int surveyedNode = randomSurvey(agent, maze);
             if(predator.getCell() == surveyedNode){
                 surveyRate++;
-                bayes(true, predator.getCell());
+                updateProbability(true, predator.getCell());
             } else {
-                bayes(false, surveyedNode);
+                updateProbability(false, surveyedNode);
             }
 //          belief updates
             belief = normalize(belief);
@@ -220,7 +220,7 @@ public class PartialPredator {
 //            dead
             else if(agent.getCell() == predator.getCell())
                 return new Result(false, false, true,false, surveyRate/((double)count+1), 0);
-            bayes(false,  agent.getCell());
+            updateProbability(false,  agent.getCell());
 //            updates belief
             belief = normalize(belief);
 //          prey move
@@ -335,7 +335,7 @@ public class PartialPredator {
     }
 
     //    updates belief when new node is surveyed;
-    public static void bayes(boolean found, int cell){
+    public static void updateProbability(boolean found, int cell){
 //        if node surveyed contains prey
         if (found){
 //            System.out.println("here");

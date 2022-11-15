@@ -49,21 +49,21 @@ public class FixedFaultyCombinedPartialInformation {
                 if(prob == 10) {
 //                    if predator is already found, then won't be faulty
                     if(predatorBelief[surveyedNode] < 1) {
-                        predatorBayes(false, surveyedNode);
+                        predatorupdateProbability(false, surveyedNode);
                         predatorBelief = predatorNormalize(predatorBelief);
 
                     }else {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell());
+                        predatorupdateProbability(true, predator.getCell());
                     }
 
                     if(preyBelief[surveyedNode] < 1) {
-                        preyBayes(false, surveyedNode);
+                        preyupdateProbability(false, surveyedNode);
                         preyNormalize();
 
                     }else {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell());
+                        preyupdateProbability(true, prey.getCell());
 
                     }
 
@@ -72,17 +72,17 @@ public class FixedFaultyCombinedPartialInformation {
                 else {
                     if (predator.getCell() == surveyedNode) {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell());
+                        predatorupdateProbability(true, predator.getCell());
                     } else {
-                        predatorBayes(false, surveyedNode);
+                        predatorupdateProbability(false, surveyedNode);
                         predatorBelief = predatorNormalize(predatorBelief);
                     }
 
                     if (prey.getCell() == surveyedNode) {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell());
+                        preyupdateProbability(true, prey.getCell());
                     } else {
-                        preyBayes(false, surveyedNode);
+                        preyupdateProbability(false, surveyedNode);
                         preyNormalize();
                     }
 
@@ -95,20 +95,20 @@ public class FixedFaultyCombinedPartialInformation {
                 if(prob == 10) {
 //                    if predator is already found, then won't be faulty
                     if(predatorBelief[surveyedNode] < 1) {
-                        predatorBayes(false, surveyedNode);
+                        predatorupdateProbability(false, surveyedNode);
                         predatorBelief = predatorNormalize(predatorBelief);
                     }else {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell());
+                        predatorupdateProbability(true, predator.getCell());
                     }
 
                     if(preyBelief[surveyedNode] < 1) {
-                        preyBayes(false, surveyedNode);
+                        preyupdateProbability(false, surveyedNode);
                         preyNormalize();
 
                     }else {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell());
+                        preyupdateProbability(true, prey.getCell());
                     }
 
 
@@ -116,17 +116,17 @@ public class FixedFaultyCombinedPartialInformation {
                 else {
                     if (prey.getCell() == surveyedNode) {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell());
+                        preyupdateProbability(true, prey.getCell());
                     } else {
-                        preyBayes(false, surveyedNode);
+                        preyupdateProbability(false, surveyedNode);
                         preyNormalize();
                     }
 
                     if (predator.getCell() == surveyedNode) {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell());
+                        predatorupdateProbability(true, predator.getCell());
                     } else {
-                        predatorBayes(false, surveyedNode);
+                        predatorupdateProbability(false, surveyedNode);
                         predatorBelief = predatorNormalize(predatorBelief);
                     }
 
@@ -196,9 +196,9 @@ public class FixedFaultyCombinedPartialInformation {
                 return new Result(false, false, true, false,preySurveyRate/((double)count + 1), predatorSurveyRate/((double)count + 1), 0);
             }
 //          belief updates
-            predatorBayes(false,  agent.getCell());
+            predatorupdateProbability(false,  agent.getCell());
             predatorBelief = predatorNormalize(predatorBelief);
-            preyBayes(false,  agent.getCell());
+            preyupdateProbability(false,  agent.getCell());
             preyNormalize();
 
 //          prey move
@@ -297,21 +297,21 @@ public class FixedFaultyCombinedPartialInformation {
                 if(prob == 10) {
 //                    if predator is already found, then won't be faulty
                     if(predatorBelief[surveyedNode] < 1) {
-                        predatorBayes(false, surveyedNode);
+                        predatorupdateProbability(false, surveyedNode);
                         predatorBelief = predatorNormalize(predatorBelief);
 
                     }else {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell());
+                        predatorupdateProbability(true, predator.getCell());
                     }
 
                     if(preyBelief[surveyedNode] < 1) {
-                        preyBayes(false, surveyedNode);
+                        preyupdateProbability(false, surveyedNode);
                         preyNormalize();
 
                     }else {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell());
+                        preyupdateProbability(true, prey.getCell());
 
                     }
 
@@ -320,17 +320,17 @@ public class FixedFaultyCombinedPartialInformation {
                 else {
                     if (predator.getCell() == surveyedNode) {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell());
+                        predatorupdateProbability(true, predator.getCell());
                     } else {
-                        predatorBayes(false, surveyedNode);
+                        predatorupdateProbability(false, surveyedNode);
                         predatorBelief = predatorNormalize(predatorBelief);
                     }
 
                     if (prey.getCell() == surveyedNode) {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell());
+                        preyupdateProbability(true, prey.getCell());
                     } else {
-                        preyBayes(false, surveyedNode);
+                        preyupdateProbability(false, surveyedNode);
                         preyNormalize();
                     }
 
@@ -343,20 +343,20 @@ public class FixedFaultyCombinedPartialInformation {
                 if(prob == 10) {
 //                    if predator is already found, then won't be faulty
                     if(predatorBelief[surveyedNode] < 1) {
-                        predatorBayes(false, surveyedNode);
+                        predatorupdateProbability(false, surveyedNode);
                         predatorBelief = predatorNormalize(predatorBelief);
                     }else {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell());
+                        predatorupdateProbability(true, predator.getCell());
                     }
 
                     if(preyBelief[surveyedNode] < 1) {
-                        preyBayes(false, surveyedNode);
+                        preyupdateProbability(false, surveyedNode);
                         preyNormalize();
 
                     }else {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell());
+                        preyupdateProbability(true, prey.getCell());
                     }
 
 
@@ -364,17 +364,17 @@ public class FixedFaultyCombinedPartialInformation {
                 else {
                     if (prey.getCell() == surveyedNode) {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell());
+                        preyupdateProbability(true, prey.getCell());
                     } else {
-                        preyBayes(false, surveyedNode);
+                        preyupdateProbability(false, surveyedNode);
                         preyNormalize();
                     }
 
                     if (predator.getCell() == surveyedNode) {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell());
+                        predatorupdateProbability(true, predator.getCell());
                     } else {
-                        predatorBayes(false, surveyedNode);
+                        predatorupdateProbability(false, surveyedNode);
                         predatorBelief = predatorNormalize(predatorBelief);
                     }
 
@@ -397,8 +397,8 @@ public class FixedFaultyCombinedPartialInformation {
                 return new Result(false, false, true, false,preySurveyRate/((double)count + 1), predatorSurveyRate/((double)count + 1), 0);
             }
 //            belief updates
-            predatorBayes(false,  agent.getCell());
-            preyBayes(false,  agent.getCell());
+            predatorupdateProbability(false,  agent.getCell());
+            preyupdateProbability(false,  agent.getCell());
             predatorBelief = predatorNormalize(predatorBelief);
             preyNormalize();
 
@@ -515,7 +515,7 @@ public class FixedFaultyCombinedPartialInformation {
 
     //    PREY METHODS
     //    updates belief when new node is surveyed
-    public static void preyBayes(boolean found, int cell){
+    public static void preyupdateProbability(boolean found, int cell){
 //        if node surveyed contains prey
         if (found){
             for (int x = 0; x < preyBelief.length; x++) {
@@ -630,7 +630,7 @@ public class FixedFaultyCombinedPartialInformation {
 
 
     //    updates belief when new node is surveyed;
-    public static void predatorBayes(boolean found, int cell){
+    public static void predatorupdateProbability(boolean found, int cell){
 //        if node surveyed contains prey
         if (found){
 //            System.out.println("here");
