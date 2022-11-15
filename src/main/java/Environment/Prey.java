@@ -8,9 +8,9 @@ public class Prey {
 //    constructor for prey
     public Prey(Agent agent){
 //        doesn't occupy same cell as agent
-        int prey = new Random().nextInt(49) + 1;
+        int prey = new Random().nextInt(50);
         while(prey == agent.getCell()){
-            prey = new Random().nextInt(49) + 1;
+            prey = new Random().nextInt(50);
         }
         this.cell = prey;
     }

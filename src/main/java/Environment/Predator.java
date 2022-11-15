@@ -7,9 +7,9 @@ public class Predator {
 //    predator constructor
     public Predator(Agent agent){
 //        doesn't occupy same cell as agent
-        int pred = new Random().nextInt(49) + 1;
+        int pred = new Random().nextInt(50);
         while(pred == agent.getCell()){
-            pred = new Random().nextInt(49) + 1;
+            pred = new Random().nextInt(50);
         }
         this.cell = pred;
     }
