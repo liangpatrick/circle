@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1522e6cc-1949-4fa9-9738-bdb20339ddb5" name="Changes" comment="idk">
+    <list default="true" id="1522e6cc-1949-4fa9-9738-bdb20339ddb5" name="Changes" comment="Fixed prey/predator initial position">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Agents/CombinedPartialInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Agents/CombinedPartialInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Agents/FaultyCombinedPartialInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Agents/FaultyCombinedPartialInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Agents/FixedFaultyCombinedPartialInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Agents/FixedFaultyCombinedPartialInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Agents/PartialPredator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Agents/PartialPredator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Agents/PartialPrey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Agents/PartialPrey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,23 +42,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "//wsl$/Ubuntu-20.04/home/liangpatrick/cs520/Maze",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "ssh.settings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;//wsl$/Ubuntu-20.04/home/liangpatrick/cs520/Maze&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;ssh.settings&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="Agents" />
@@ -89,6 +95,8 @@
       <workItem from="1668199750727" duration="34178000" />
       <workItem from="1668311066874" duration="330000" />
       <workItem from="1668311494720" duration="15293000" />
+      <workItem from="1668478691783" duration="383000" />
+      <workItem from="1668479085880" duration="13359000" />
     </task>
     <task id="LOCAL-00001" summary="Agent 5 Done">
       <created>1668026860449</created>
@@ -202,7 +210,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668465564880</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Fixed prey/predator initial position">
+      <created>1668478805542</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1668478805542</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -236,7 +251,8 @@
     <MESSAGE value="New Run Format" />
     <MESSAGE value="maven" />
     <MESSAGE value="idk" />
-    <option name="LAST_COMMIT_MESSAGE" value="idk" />
+    <MESSAGE value="Fixed prey/predator initial position" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed prey/predator initial position" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Circle$Main.ic" NAME="Main Coverage Results" MODIFIED="1667510959029" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

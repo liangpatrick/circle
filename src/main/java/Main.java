@@ -4,67 +4,6 @@ import Environment.*;
 import java.util.*;
 
 public class Main {
-
-
-    public static void runThree(){
-        double aveSuccess = 0;
-        int hung = 0;
-        double fail = 0;
-        long total = System.nanoTime();
-
-        int agentSuccess       = 0;
-        int predatorSuccess  = 0;
-        int agentFail     = 0;
-        int preyDeath = 0;
-        double preySurveyRate= 0;
-        double predatorSurveyRate= 0;
-        for(int graphs = 1; graphs <= 30; graphs++) {
-            int success = 0;
-            ArrayList<ArrayList<Graph.Node>> maze = Graph.buildGraph();
-            for (int runs = 1; runs <= 100; runs++) {
-                Result resultTwo = PartialPrey.agentThree(maze);
-                if (resultTwo.predatorCatchesAgent) {
-//                    predator catches agent
-                    predatorSuccess++;
-                }
-                else if (resultTwo.agentCatchesPrey) {
-//                    agent catches prey
-                    agentSuccess++;
-                }
-                else if (resultTwo.agentRunsPredator) {
-//                    agent runs into agent
-                    agentFail++;
-                }
-                else if (resultTwo.preyRunsAgent) {
-//                    prey runs into agent
-                    preyDeath++;
-                }
-                else if (resultTwo.hung > 0) {
-//                    hung
-                    hung++;
-                }
-            }
-            aveSuccess += success;
-        }
-        long endTime = System.nanoTime();
-        long duration = (endTime - total)/(long)Math.pow(10,9);
-        System.out.println(duration);
-        System.out.println("Predator Catches Agent: " + predatorSuccess);
-        System.out.println("Predator Catches Agent out of total Loss: " + predatorSuccess/((double)predatorSuccess + agentFail+hung));
-        System.out.println("Agent Catches Prey: " + agentSuccess);
-        System.out.println("Prey Runs into Agent: " + preyDeath);
-        System.out.println("Agent Runs into Predaotr: " + agentFail);
-        System.out.println("Average Prey Survey Rate: " + ((preySurveyRate / 3000.0 )* 100));
-        System.out.println("Average Predator Survey Rate: " + ((predatorSurveyRate / 3000.0)*100));
-        System.out.println("Hung out of Loss: " + (double)hung/((double)predatorSuccess + agentFail+hung));
-        System.out.println("Predator Catches Agent: " + predatorSuccess);
-        System.out.println("A3: " + ((agentSuccess + preyDeath)/3000.0) * 100);
-//        System.out.println();
-    }
-
-
-
-
     public static void runAll(){
         int[] agentSuccess           = new int[13];
         int[] hung                   = new int[13];
@@ -403,12 +342,7 @@ public class Main {
 
 
     public static void main (String args[]) {
-
         runAll();
-
-//        runThree();
-
-
 
 
     }

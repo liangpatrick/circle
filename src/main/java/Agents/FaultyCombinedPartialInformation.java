@@ -38,47 +38,54 @@ public class FaultyCombinedPartialInformation {
             ArrayList<Integer> predatorDistances = new ArrayList<>();
             ArrayList<Integer> preyDistances = new ArrayList<>();
 //            random survey
+            if (count == 5000)
+                return new Result(false, false, false,false, preySurveyRate/((double)count + 1), predatorSurveyRate/((double)count + 1), count);
+//            creates arraylists of neighbors, predator distances, and prey distances
+//            random survey
             if(predatorMaxBelief() < 1) {
                 int surveyedNode = predatorRandomSurvey(agent, maze);
 //                10% chance its faulty
                 int prob = new Random().nextInt(10)+1;
                 if(prob == 10) {
 //                    if predator is already found, then won't be faulty
-                    if(predatorBelief[surveyedNode] != 1) {
-                        predatorBayes(false, surveyedNode, agent);
+                    if(predatorBelief[surveyedNode] < 1) {
+                        predatorBayes(false, surveyedNode);
+                        predatorBelief = predatorNormalize(predatorBelief);
 
                     }else {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell(), agent);
+                        predatorBayes(true, predator.getCell());
                     }
-                    predatorBelief = predatorNormalize(predatorBelief);
-                    if(preyBelief[surveyedNode] != 1) {
-                        preyBayes(false, surveyedNode, agent);
+
+                    if(preyBelief[surveyedNode] < 1) {
+                        preyBayes(false, surveyedNode);
+                        preyNormalize();
 
                     }else {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell(), agent);
+                        preyBayes(true, prey.getCell());
+
                     }
-                    predatorNormalize(preyBelief);
-                    preyBayes(false, surveyedNode, agent);
-                    preyNormalize();
+
 
                 }
                 else {
                     if (predator.getCell() == surveyedNode) {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell(), agent);
+                        predatorBayes(true, predator.getCell());
                     } else {
-                        predatorBayes(false, surveyedNode, agent);
+                        predatorBayes(false, surveyedNode);
+                        predatorBelief = predatorNormalize(predatorBelief);
                     }
-                    predatorBelief = predatorNormalize(predatorBelief);
+
                     if (prey.getCell() == surveyedNode) {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell(), agent);
+                        preyBayes(true, prey.getCell());
                     } else {
-                        preyBayes(false, surveyedNode, agent);
+                        preyBayes(false, surveyedNode);
+                        preyNormalize();
                     }
-                    preyNormalize();
+
                 }
             } else {
                 int surveyedNode = preyRandomSurvey();
@@ -87,39 +94,42 @@ public class FaultyCombinedPartialInformation {
                 int prob = new Random().nextInt(10)+1;
                 if(prob == 10) {
 //                    if predator is already found, then won't be faulty
-                    if(predatorBelief[surveyedNode] != 1) {
-                        predatorBayes(false, surveyedNode, agent);
-
+                    if(predatorBelief[surveyedNode] < 1) {
+                        predatorBayes(false, surveyedNode);
+                        predatorBelief = predatorNormalize(predatorBelief);
                     }else {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell(), agent);
+                        predatorBayes(true, predator.getCell());
                     }
-                    predatorBelief = predatorNormalize(predatorBelief);
-                    if(preyBelief[surveyedNode] != 1) {
-                        preyBayes(false, surveyedNode, agent);
+
+                    if(preyBelief[surveyedNode] < 1) {
+                        preyBayes(false, surveyedNode);
+                        preyNormalize();
 
                     }else {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell(), agent);
+                        preyBayes(true, prey.getCell());
                     }
-                    predatorNormalize(preyBelief);
-                    preyBayes(false, surveyedNode, agent);
-                    preyNormalize();
+
+
                 }
                 else {
                     if (prey.getCell() == surveyedNode) {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell(), agent);
+                        preyBayes(true, prey.getCell());
                     } else {
-                        preyBayes(false, surveyedNode, agent);
+                        preyBayes(false, surveyedNode);
+                        preyNormalize();
                     }
-                    preyNormalize();
+
                     if (predator.getCell() == surveyedNode) {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell(), agent);
+                        predatorBayes(true, predator.getCell());
                     } else {
-                        predatorBayes(false, surveyedNode, agent);
+                        predatorBayes(false, surveyedNode);
+                        predatorBelief = predatorNormalize(predatorBelief);
                     }
+
                 }
             }
 //          gets most probabilistic values
@@ -186,9 +196,9 @@ public class FaultyCombinedPartialInformation {
                 return new Result(false, false, true, false,preySurveyRate/((double)count + 1), predatorSurveyRate/((double)count + 1), 0);
             }
 //          belief updates
-            predatorBayes(false,  agent.getCell(), agent);
+            predatorBayes(false,  agent.getCell());
             predatorBelief = predatorNormalize(predatorBelief);
-            preyBayes(false,  agent.getCell(), agent);
+            preyBayes(false,  agent.getCell());
             preyNormalize();
 
 //          prey move
@@ -199,7 +209,7 @@ public class FaultyCombinedPartialInformation {
                 return new Result(false, false, false, true,preySurveyRate/((double)count + 1), predatorSurveyRate/((double)count + 1), 0);
             }
             preyMatmul();
-            preyNormalize();
+//            preyNormalize();
 
 //            pred move
             List<Graph.Node> predatorNeighbors = maze.get(predator.getCell()).subList(1, maze.get(predator.getCell()).size());
@@ -239,17 +249,16 @@ public class FaultyCombinedPartialInformation {
             double[] temp1 = predatorBelief.clone();
             double[] temp2 = predatorBelief.clone();
             temp1 = predatorMatmul(temp1);
-            temp1 = predatorNormalize(temp1);
-
+            for(int x = 0; x < temp1.length; x++)
+                temp1[x] *= .6;
 
             temp2 = matmulRand(temp2);
-            temp2 = predatorNormalize(temp2);
-
+            for(int x = 0; x < temp2.length; x++)
+                temp2[x] *= .4;
 
             for(int x = 0; x < predatorBelief.length; x++)
                 predatorBelief[x] = temp1[x] + temp2[x];
 
-            predatorBelief = predatorNormalize(predatorBelief);
 
 
             count++;
@@ -287,41 +296,44 @@ public class FaultyCombinedPartialInformation {
                 int prob = new Random().nextInt(10)+1;
                 if(prob == 10) {
 //                    if predator is already found, then won't be faulty
-                    if(predatorBelief[surveyedNode] != 1) {
-                        predatorBayes(false, surveyedNode, agent);
+                    if(predatorBelief[surveyedNode] < 1) {
+                        predatorBayes(false, surveyedNode);
+                        predatorBelief = predatorNormalize(predatorBelief);
 
                     }else {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell(), agent);
+                        predatorBayes(true, predator.getCell());
                     }
-                    predatorBelief = predatorNormalize(predatorBelief);
-                    if(preyBelief[surveyedNode] != 1) {
-                        preyBayes(false, surveyedNode, agent);
+
+                    if(preyBelief[surveyedNode] < 1) {
+                        preyBayes(false, surveyedNode);
+                        preyNormalize();
 
                     }else {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell(), agent);
+                        preyBayes(true, prey.getCell());
+
                     }
-                    predatorNormalize(preyBelief);
-                    preyBayes(false, surveyedNode, agent);
-                    preyNormalize();
+
 
                 }
                 else {
                     if (predator.getCell() == surveyedNode) {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell(), agent);
+                        predatorBayes(true, predator.getCell());
                     } else {
-                        predatorBayes(false, surveyedNode, agent);
+                        predatorBayes(false, surveyedNode);
+                        predatorBelief = predatorNormalize(predatorBelief);
                     }
-                    predatorBelief = predatorNormalize(predatorBelief);
+
                     if (prey.getCell() == surveyedNode) {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell(), agent);
+                        preyBayes(true, prey.getCell());
                     } else {
-                        preyBayes(false, surveyedNode, agent);
+                        preyBayes(false, surveyedNode);
+                        preyNormalize();
                     }
-                    preyNormalize();
+
                 }
             } else {
                 int surveyedNode = preyRandomSurvey();
@@ -330,39 +342,42 @@ public class FaultyCombinedPartialInformation {
                 int prob = new Random().nextInt(10)+1;
                 if(prob == 10) {
 //                    if predator is already found, then won't be faulty
-                    if(predatorBelief[surveyedNode] != 1) {
-                        predatorBayes(false, surveyedNode, agent);
-
+                    if(predatorBelief[surveyedNode] < 1) {
+                        predatorBayes(false, surveyedNode);
+                        predatorBelief = predatorNormalize(predatorBelief);
                     }else {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell(), agent);
+                        predatorBayes(true, predator.getCell());
                     }
-                    predatorBelief = predatorNormalize(predatorBelief);
-                    if(preyBelief[surveyedNode] != 1) {
-                        preyBayes(false, surveyedNode, agent);
+
+                    if(preyBelief[surveyedNode] < 1) {
+                        preyBayes(false, surveyedNode);
+                        preyNormalize();
 
                     }else {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell(), agent);
+                        preyBayes(true, prey.getCell());
                     }
-                    predatorNormalize(preyBelief);
-                    preyBayes(false, surveyedNode, agent);
-                    preyNormalize();
+
+
                 }
                 else {
                     if (prey.getCell() == surveyedNode) {
                         preySurveyRate++;
-                        preyBayes(true, prey.getCell(), agent);
+                        preyBayes(true, prey.getCell());
                     } else {
-                        preyBayes(false, surveyedNode, agent);
+                        preyBayes(false, surveyedNode);
+                        preyNormalize();
                     }
-                    preyNormalize();
+
                     if (predator.getCell() == surveyedNode) {
                         predatorSurveyRate++;
-                        predatorBayes(true, predator.getCell(), agent);
+                        predatorBayes(true, predator.getCell());
                     } else {
-                        predatorBayes(false, surveyedNode, agent);
+                        predatorBayes(false, surveyedNode);
+                        predatorBelief = predatorNormalize(predatorBelief);
                     }
+
                 }
             }
 
@@ -382,8 +397,8 @@ public class FaultyCombinedPartialInformation {
                 return new Result(false, false, true, false,preySurveyRate/((double)count + 1), predatorSurveyRate/((double)count + 1), 0);
             }
 //            belief updates
-            predatorBayes(false,  agent.getCell(), agent);
-            preyBayes(false,  agent.getCell(), agent);
+            predatorBayes(false,  agent.getCell());
+            preyBayes(false,  agent.getCell());
             predatorBelief = predatorNormalize(predatorBelief);
             preyNormalize();
 
@@ -394,7 +409,7 @@ public class FaultyCombinedPartialInformation {
                 return new Result(false, false, false, true,preySurveyRate/((double)count + 1), predatorSurveyRate/((double)count + 1), 0);
             }
             preyMatmul();
-            preyNormalize();
+//            preyNormalize();
 
 
 //            pred move
@@ -435,19 +450,17 @@ public class FaultyCombinedPartialInformation {
             double[] temp1 = predatorBelief.clone();
             double[] temp2 = predatorBelief.clone();
             temp1 = predatorMatmul(temp1);
-            temp1 = predatorNormalize(temp1);
             for(int x = 0; x < temp1.length; x++)
                 temp1[x] *= .6;
 
             temp2 = matmulRand(temp2);
-            temp2 = predatorNormalize(temp2);
             for(int x = 0; x < temp2.length; x++)
                 temp2[x] *= .4;
 
             for(int x = 0; x < predatorBelief.length; x++)
                 predatorBelief[x] = temp1[x] + temp2[x];
 
-            predatorBelief = predatorNormalize(predatorBelief);
+//            predatorBelief = predatorNormalize(predatorBelief);
 
 
             count++;
@@ -503,7 +516,7 @@ public class FaultyCombinedPartialInformation {
 
     //    PREY METHODS
     //    updates belief when new node is surveyed
-    public static void preyBayes(boolean found, int cell, Agent agent){
+    public static void preyBayes(boolean found, int cell){
 //        if node surveyed contains prey
         if (found){
             for (int x = 0; x < preyBelief.length; x++) {
@@ -519,11 +532,10 @@ public class FaultyCombinedPartialInformation {
 //            update all probabilities based on removal of current probability
             double removedProbability = preyBelief[cell];
             for (int x = 0; x < preyBelief.length; x++) {
-                if(x == agent.getCell() || x == cell){
+                if(x == cell){
                     preyBelief[x] = 0;
                 }  else {
-
-                    preyBelief[x] /= (1-removedProbability);
+                    preyBelief[x] /= (1.0-removedProbability);
                 }
             }
         }
@@ -554,9 +566,13 @@ public class FaultyCombinedPartialInformation {
     }
     //    never changes
     public static void preyInitTransMatrix(ArrayList<ArrayList<Graph.Node>> maze){
+        for(int x = 0; x < 50; x++){
+            for(int y = 0; y < 50; y++){
+                preyTransMatrix[x][y] = 0;
+            }
+        }
         for(int x = 0; x < maze.size(); x++){
             for(int y = 0; y < maze.get(x).size(); y++){
-//                initialize neighbors with only 1/number of neighbors including start
                 preyTransMatrix[maze.get(x).get(0).getCell()][maze.get(x).get(y).getCell()] = 1.0/(maze.get(x).size());
             }
         }
@@ -594,8 +610,10 @@ public class FaultyCombinedPartialInformation {
     public static double preyDotProduct(int row, double[] temp) {
         double sum = 0;
         for (int x = 0; x < 50; x++) {
-            sum += preyTransMatrix[row][x] * temp[x];
+            sum += preyTransMatrix[x][row] * temp[x];
+
         }
+
         return sum;
 
     }
@@ -610,31 +628,32 @@ public class FaultyCombinedPartialInformation {
 
 //  PREDATOR METHODS:
 //    updates belief when new node is surveyed;
-    public static void predatorBayes(boolean found, int cell, Agent agent){
+    public static void predatorBayes(boolean found, int cell){
 //        if node surveyed contains prey
-        if (found){
-            for (int x = 0; x < predatorBelief.length; x++) {
-                if (cell == x) {
-                    predatorBelief[x] = 1.0;
-                } else {
-                    predatorBelief[x] = 0.0;
-                }
-
+    if (found){
+//            System.out.println("here");
+        for (int x = 0; x < predatorBelief.length; x++) {
+            if (cell == x) {
+                predatorBelief[x] = 1.0;
+            } else {
+                predatorBelief[x] = 0.0;
             }
 
-        } else {
-//            update all probabilities based on removal of current probability
-            double removedProbability = predatorBelief[cell];
-            for (int x = 0; x < predatorBelief.length; x++) {
-                if(x == agent.getCell() || x == cell){
-                    predatorBelief[x] = 0;
-                }  else {
+        }
 
-                    predatorBelief[x] /= (1-removedProbability);
-                }
+    } else {
+//            update all probabilities based on removal of current probability
+        double removedProbability = predatorBelief[cell];
+        for (int x = 0; x < predatorBelief.length; x++) {
+            if(x == cell){
+                predatorBelief[x] = 0;
+            }  else {
+
+                predatorBelief[x] /= (1.0-removedProbability);
             }
         }
     }
+}
 
     //    initializes 1 for predator location because we already know it
     public static void predatorInitialBelief(int predatorCell){
@@ -645,17 +664,22 @@ public class FaultyCombinedPartialInformation {
             else {
                 predatorBelief[x] = 0.0;
             }
+//            System.out.println(belief[x]);
 
         }
     }
 
 
     public static void initRandTransMatrix(ArrayList<ArrayList<Graph.Node>> maze){
+        for(int x = 0; x < 50; x++){
+            for(int y = 0; y < 50; y++){
+                predatorRandTransMatrix[x][y] = 0;
+            }
+        }
         for(int x = 0; x < maze.size(); x++){
             for(int y = 0; y < maze.get(x).size(); y++){
-//                updates each neighbor with .4/number of neighbors
                 if(maze.get(x).get(0).getCell() !=  maze.get(x).get(y).getCell())
-                    predatorRandTransMatrix[maze.get(x).get(0).getCell()][maze.get(x).get(y).getCell()] = (0.4/(maze.get(x).size()-1));
+                    predatorRandTransMatrix[maze.get(x).get(0).getCell()][maze.get(x).get(y).getCell()] = (1.0/(maze.get(x).size()-1));
                 else
                     predatorRandTransMatrix[maze.get(x).get(0).getCell()][maze.get(x).get(y).getCell()] = 0.0;
             }
@@ -663,29 +687,37 @@ public class FaultyCombinedPartialInformation {
     }
 
 
-//  updates trans matrix every time agent moves
+
     public static void updateTransMatrix(Agent agent, ArrayList<ArrayList<Graph.Node>> maze){
         for(int x = 0; x < maze.size(); x++){
-
+//            if (x == agent.getCell())
+//                continue;
             List<Graph.Node> neighbors = maze.get(x).subList(1, maze.get(x).size());
             ArrayList<Integer> distances = new ArrayList<>();
-//            accumulates all distances for current list of neighbors to agent
+//            accumaltes all distancesfor current list of neighbors to agent
             for(int y = 0; y < neighbors.size(); y++){
                 List<Graph.Node> predatorDistance = Predator.bfs(neighbors.get(y).getCell(), agent, maze);
                 distances.add(predatorDistance.size());
             }
 
-//            updates trans matrix with probability of predator/cell moving to next cell towards agent.
+//            updates transmatrix with probability of predator/cell moving to next cell towards agent.
             int minimum = Collections.min(distances);
             int count = countMin(distances, minimum);
-//            updates shortest path neighbors
+
             for(int y = 0; y < 50; y++){
-                predatorTransMatrix[y][x] = 0.0;
+//                if (y > 0)
+//                    transMatrix[x][y] = .4/(neighbors.size()-1);
+                predatorTransMatrix[x][y] = 0.0;
                 if(neighbors.contains(new Graph.Node(y)) && minimum == distances.get(neighbors.indexOf(new Graph.Node(y)))) {
-                    predatorTransMatrix[y][x] = (0.6/ count);
+                    predatorTransMatrix[x][y] = (1.0/ count);
+
                 }
+
             }
+
+
         }
+
     }
 
     //    returns random cell that has the highest likelihood of being prey
@@ -762,7 +794,7 @@ public class FaultyCombinedPartialInformation {
     public static double predatorDotProduct(int row, double[] temp) {
         double sum = 0;
         for (int x = 0; x < 50; x++) {
-            sum += predatorTransMatrix[row][x] * temp[x];
+            sum += predatorTransMatrix[x][row] * temp[x];
 
         }
 

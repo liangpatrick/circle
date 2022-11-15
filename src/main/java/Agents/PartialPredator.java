@@ -37,9 +37,9 @@ public class PartialPredator {
 
             if(predator.getCell() == surveyedNode){
                 surveyRate++;
-                bayes(true, predator.getCell(), agent);
+                bayes(true, predator.getCell());
             } else {
-                bayes(false, surveyedNode, agent);
+                bayes(false, surveyedNode);
             }
 //            belief updates
             belief = normalize(belief);
@@ -106,7 +106,7 @@ public class PartialPredator {
             else if(agent.getCell() == predator.getCell())
                 return new Result(false, false, true,false, surveyRate/((double)count+1), 0);
 //          belief update
-            bayes(false,  agent.getCell(), agent);
+            bayes(false,  agent.getCell());
             belief  = normalize(belief);
 
 
@@ -154,18 +154,22 @@ public class PartialPredator {
 
             double[] temp1 = belief.clone();
             double[] temp2 = belief.clone();
+
             temp1 = matmul(temp1);
-            temp1 = normalize(temp1);
+            for(int x = 0; x < temp1.length; x++){
+                temp1[x]*=.6;
+            }
 
 
             temp2 = matmulRand(temp2);
-            temp2 = normalize(temp2);
-
+            for(int x = 0; x < temp2.length; x++){
+                temp2[x]*=.4;
+            }
 
             for(int x = 0; x < belief.length; x++)
                 belief[x] = temp1[x] + temp2[x];
-
-            belief = normalize(belief);
+//            System.out.println(beliefSum(belief));
+//            belief = normalize(belief);
 
 
             count++;
@@ -197,9 +201,9 @@ public class PartialPredator {
             int surveyedNode = randomSurvey(agent, maze);
             if(predator.getCell() == surveyedNode){
                 surveyRate++;
-                bayes(true, predator.getCell(), agent);
+                bayes(true, predator.getCell());
             } else {
-                bayes(false, surveyedNode, agent);
+                bayes(false, surveyedNode);
             }
 //          belief updates
             belief = normalize(belief);
@@ -216,7 +220,7 @@ public class PartialPredator {
 //            dead
             else if(agent.getCell() == predator.getCell())
                 return new Result(false, false, true,false, surveyRate/((double)count+1), 0);
-            bayes(false,  agent.getCell(), agent);
+            bayes(false,  agent.getCell());
 //            updates belief
             belief = normalize(belief);
 //          prey move
@@ -263,13 +267,11 @@ public class PartialPredator {
             double[] temp1 = belief.clone();
             double[] temp2 = belief.clone();
             temp1 = matmul(temp1);
-            temp1 = normalize(temp1);
             for(int x = 0; x < temp1.length; x++)
                 temp1[x] *= .6;
 //            temp1 = normalize(temp1);
 
             temp2 = matmulRand(temp2);
-            temp2 = normalize(temp2);
             for(int x = 0; x < temp2.length; x++)
                 temp2[x] *= .4;
 //            temp2 = normalize(temp2);
@@ -333,7 +335,7 @@ public class PartialPredator {
     }
 
     //    updates belief when new node is surveyed;
-    public static void bayes(boolean found, int cell, Agent agent){
+    public static void bayes(boolean found, int cell){
 //        if node surveyed contains prey
         if (found){
 //            System.out.println("here");
@@ -350,11 +352,11 @@ public class PartialPredator {
 //            update all probabilities based on removal of current probability
             double removedProbability = belief[cell];
             for (int x = 0; x < belief.length; x++) {
-                if(x == agent.getCell() || x == cell){
+                if(x == cell){
                     belief[x] = 0;
                 }  else {
 
-                    belief[x] /= (1-removedProbability);
+                    belief[x] /= (1.0-removedProbability);
                 }
             }
         }
@@ -374,11 +376,16 @@ public class PartialPredator {
     }
 
     public static void initRandTransMatrix(ArrayList<ArrayList<Graph.Node>> maze){
+        for(int x = 0; x < 50; x++){
+            for(int y = 0; y < 50; y++){
+                randTransMatrix[x][y] = 0;
+            }
+        }
         for(int x = 0; x < maze.size(); x++){
             for(int y = 0; y < maze.get(x).size(); y++){
 //                updates neighbors with .4/number of neighbors
                 if(maze.get(x).get(0).getCell() !=  maze.get(x).get(y).getCell())
-                    randTransMatrix[maze.get(x).get(0).getCell()][maze.get(x).get(y).getCell()] = (0.4/(maze.get(x).size()-1));
+                    randTransMatrix[maze.get(x).get(0).getCell()][maze.get(x).get(y).getCell()] = (1.0/(maze.get(x).size()-1));
                 else
                     randTransMatrix[maze.get(x).get(0).getCell()][maze.get(x).get(y).getCell()] = 0.0;
             }
@@ -404,9 +411,9 @@ public class PartialPredator {
 
 //            updates current shortest path neighbors with .6/count
             for(int y = 0; y < 50; y++){
-                transMatrix[y][x] = 0.0;
+                transMatrix[x][y] = 0.0;
                 if(neighbors.contains(new Graph.Node(y)) && minimum == distances.get(neighbors.indexOf(new Graph.Node(y)))) {
-                    transMatrix[y][x] = (0.6/ count);
+                    transMatrix[x][y] = (1.0/ count);
 
                 }
 
@@ -486,7 +493,7 @@ public class PartialPredator {
     public static double dotProduct(int row, double[] temp) {
         double sum = 0;
         for (int x = 0; x < 50; x++) {
-            sum += transMatrix[row][x] * temp[x];
+            sum += transMatrix[x][row] * temp[x];
         }
 
         return sum;

@@ -34,9 +34,9 @@ public class PartialPrey {
             int surveyedNode = randomSurvey();
             if(prey.getCell() == surveyedNode){
                 surveyRate++;
-                bayes(true, prey.getCell(), agent);
+                bayes(true, prey.getCell());
             } else {
-                bayes(false, surveyedNode, agent);
+                bayes(false, surveyedNode);
             }
 //            updates beliefs
             normalize();
@@ -101,7 +101,7 @@ public class PartialPrey {
             else if(agent.getCell() == predator.getCell())
                 return new Result(false, false, true,false, surveyRate/((double)count + 1), 0);
 //            updates beliefs
-            bayes(false,  agent.getCell(), agent);
+            bayes(false,  agent.getCell());
             normalize();
 //          prey move
 
@@ -112,7 +112,8 @@ public class PartialPrey {
             }
 //            belief distribution
             matmul();
-            normalize();
+//            System.out.println(beliefSum(belief));
+//            normalize();
 
 
 //            pred move
@@ -169,9 +170,9 @@ public class PartialPrey {
 //            random survey
             int surveyedNode = randomSurvey();
             if(prey.getCell() == surveyedNode){
-                bayes(true, prey.getCell(), agent);
+                bayes(true, prey.getCell());
             } else {
-                bayes(false, surveyedNode, agent);
+                bayes(false, surveyedNode);
             }
 //            update beliefs
             normalize();
@@ -189,7 +190,7 @@ public class PartialPrey {
             }
             else if(agent.getCell() == predator.getCell())
                 return new Result(false, false, true,false, surveyRate/((double)count + 1), 0);
-            bayes(false,  agent.getCell(), agent);
+            bayes(false,  agent.getCell());
             normalize();
 //          prey move
             prey.setCell(Prey.choosesNeighbors(prey.getCell(), maze));
@@ -199,7 +200,7 @@ public class PartialPrey {
             }
 //            distributes beliefs
             matmul();
-            normalize();
+//            normalize();
 
 
 
@@ -281,7 +282,7 @@ public class PartialPrey {
     }
 
 //    updates belief when new node is surveyed
-    public static void bayes(boolean found, int cell, Agent agent){
+    public static void bayes(boolean found, int cell){
 //        if node surveyed contains prey
         if (found){
             for (int x = 0; x < belief.length; x++) {
@@ -297,7 +298,7 @@ public class PartialPrey {
 //            update all probabilities based on removal of current probability
             double removedProbability = belief[cell];
             for (int x = 0; x < belief.length; x++) {
-                if(x == agent.getCell() || x == cell){
+                if(x == cell){
                     belief[x] = 0;
                 }  else {
                     belief[x] /= (1.0-removedProbability);
@@ -339,6 +340,11 @@ public class PartialPrey {
     }
 //    never changes
     public static void initTransMatrix(ArrayList<ArrayList<Graph.Node>> maze){
+        for(int x = 0; x < 50; x++){
+            for(int y = 0; y < 50; y++){
+                transMatrix[x][y] = 0;
+            }
+        }
         for(int x = 0; x < maze.size(); x++){
             for(int y = 0; y < maze.get(x).size(); y++){
                 transMatrix[maze.get(x).get(0).getCell()][maze.get(x).get(y).getCell()] = 1.0/(maze.get(x).size());
@@ -373,25 +379,25 @@ public class PartialPrey {
 
     }
 
-//    normalizes values
-    public static void normalize(){
-        double sum = beliefSum(belief);
-        for(int x = 0; x < 50; x++){
-            belief[x] /= sum;
-        }
-    }
+
 
 //    dot product to update belief with transMatrix
     public static double dotProduct(int row, double[] temp) {
         double sum = 0;
         for (int x = 0; x < 50; x++) {
-            sum += transMatrix[row][x] * temp[x];
+            sum += transMatrix[x][row] * temp[x];
 
         }
 
         return sum;
 
     }
-
+    //    normalizes values
+    public static void normalize(){
+        double sum = beliefSum(belief);
+        for(int x = 0; x < 50; x++){
+            belief[x] /= sum;
+        }
+    }
 
 }
