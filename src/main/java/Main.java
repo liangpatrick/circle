@@ -202,7 +202,101 @@ public class Main {
                 predatorSurveyRate[8] += resultEight.predatorSurveyRate;
                 preySurveyRate[8] += resultEight.preySurveyRate;
 
+                Result resultSevenFaulty = FaultyCombinedPartialInformation.agentSevenFaulty(maze);
+                if (resultSevenFaulty.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[9]++;
+                }
+                else if (resultSevenFaulty.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[9]++;
+                }
+                else if (resultSevenFaulty.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[9]++;
+                }
+                else if (resultSevenFaulty.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[9]++;
+                }
+                else if (resultSevenFaulty.hung > 0) {
+//                    hung
+                    hung[9]++;
+                }
+                predatorSurveyRate[9] += resultSevenFaulty.predatorSurveyRate;
+                preySurveyRate[9] += resultSevenFaulty.preySurveyRate;
 
+                Result resultEightFaulty = FaultyCombinedPartialInformation.agentEightFaulty(maze);
+                if (resultEightFaulty.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[10]++;
+                }
+                else if (resultEightFaulty.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[10]++;
+                }
+                else if (resultEightFaulty.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[10]++;
+                }
+                else if (resultEightFaulty.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[10]++;
+                }
+                else if (resultEightFaulty.hung > 0) {
+//                    hung
+                    hung[10]++;
+                }
+                predatorSurveyRate[10] += resultEightFaulty.predatorSurveyRate;
+                preySurveyRate[10] += resultEightFaulty.preySurveyRate;
+
+                Result resultSevenFaultyFixed = FixedFaultyCombinedPartialInformation.agentSevenFaultyFixed(maze);
+                if (resultSevenFaultyFixed.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[11]++;
+                }
+                else if (resultSevenFaultyFixed.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[11]++;
+                }
+                else if (resultSevenFaultyFixed.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[11]++;
+                }
+                else if (resultSevenFaultyFixed.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[11]++;
+                }
+                else if (resultSevenFaultyFixed.hung > 0) {
+//                    hung
+                    hung[11]++;
+                }
+                predatorSurveyRate[11] += resultSevenFaultyFixed.predatorSurveyRate;
+                preySurveyRate[11] += resultSevenFaultyFixed.preySurveyRate;
+
+                Result resultEightFaultyFixed = FixedFaultyCombinedPartialInformation.agentEightFaultyFixed(maze);
+                if (resultEightFaultyFixed.predatorCatchesAgent) {
+//                    predator catches agent
+                    predatorSuccess[12]++;
+                }
+                else if (resultEightFaultyFixed.agentCatchesPrey) {
+//                    agent catches prey
+                    agentSuccess[12]++;
+                }
+                else if (resultEightFaultyFixed.agentRunsPredator) {
+//                    agent runs into agent
+                    agentFail[12]++;
+                }
+                else if (resultEightFaultyFixed.preyRunsAgent) {
+//                    prey runs into agent
+                    preyDeath[12]++;
+                }
+                else if (resultEightFaultyFixed.hung > 0) {
+//                    hung
+                    hung[12]++;
+                }
+                predatorSurveyRate[12] += resultEightFaultyFixed.predatorSurveyRate;
+                preySurveyRate[12] += resultEightFaultyFixed.preySurveyRate;
 
             }
             long endTime = System.nanoTime();
