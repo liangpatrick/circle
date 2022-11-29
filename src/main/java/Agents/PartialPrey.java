@@ -34,9 +34,9 @@ public class PartialPrey {
             int surveyedNode = randomSurvey();
             if(prey.getCell() == surveyedNode){
                 surveyRate++;
-                updateProbability(true, prey.getCell());
+                bayes(true, prey.getCell());
             } else {
-                updateProbability(false, surveyedNode);
+                bayes(false, surveyedNode);
             }
 //            updates beliefs
             normalize();
@@ -101,7 +101,7 @@ public class PartialPrey {
             else if(agent.getCell() == predator.getCell())
                 return new Result(false, false, true,false, surveyRate/((double)count + 1), 0);
 //            updates beliefs
-            updateProbability(false,  agent.getCell());
+            bayes(false,  agent.getCell());
             normalize();
 //          prey move
 
@@ -170,9 +170,9 @@ public class PartialPrey {
 //            random survey
             int surveyedNode = randomSurvey();
             if(prey.getCell() == surveyedNode){
-                updateProbability(true, prey.getCell());
+                bayes(true, prey.getCell());
             } else {
-                updateProbability(false, surveyedNode);
+                bayes(false, surveyedNode);
             }
 //            update beliefs
             normalize();
@@ -190,7 +190,7 @@ public class PartialPrey {
             }
             else if(agent.getCell() == predator.getCell())
                 return new Result(false, false, true,false, surveyRate/((double)count + 1), 0);
-            updateProbability(false,  agent.getCell());
+            bayes(false,  agent.getCell());
             normalize();
 //          prey move
             prey.setCell(Prey.choosesNeighbors(prey.getCell(), maze));
@@ -282,7 +282,7 @@ public class PartialPrey {
     }
 
 //    updates belief when new node is surveyed
-    public static void updateProbability(boolean found, int cell){
+    public static void bayes(boolean found, int cell){
 //        if node surveyed contains prey
         if (found){
             for (int x = 0; x < belief.length; x++) {
